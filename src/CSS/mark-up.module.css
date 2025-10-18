@@ -742,3 +742,105 @@
     padding: 10px 14px;
     font-size: 13px;
   }
+.notesGrid {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.noteCard {
+  transition: all 0.3s ease;
+}
+
+.noteCard:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+}
+.textInput {
+  width: 100%;
+  padding: 10px;
+  margin: 8px 0;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+
+.textarea {
+  width: 100%;
+  min-height: 180px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-family: monospace;
+}
+
+.markdownPreview {
+  border: 1px solid #ccc;
+  padding: 10px;
+  border-radius: 8px;
+  background: #f9fafb;
+  min-height: 180px;
+}
+
+.buttonRow {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.btnPrimary {
+  background: #0070f3;
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.btnSecondary {
+  background: #e2e8f0;
+  color: #1a202c;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.btnDanger {
+  background: #dc3545;
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.notesGrid {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.noteCard {
+  background: #fff;
+  padding: 16px;
+  border-radius: 10px;
+  border: 1px solid #ddd;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+}
+
+.noteContent {
+  margin-top: 10px;
+}
+
+.sortRow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 10px 0;
+}
+
+.selectBox {
+  padding: 6px 8px;
+  border-radius: 6px;
+}

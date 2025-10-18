@@ -1,54 +1,56 @@
+/* Modern Food Review App Styles - 400px Width */
 .container {
   min-height: 100vh;
+  background: white;
+  padding: 16px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #fff;
-  padding: 20px;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 }
 
 .content {
-  background: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(20px);
-  border-radius: 24px;
-  padding: 48px 40px;
-  text-align: center;
+  background: white;
+  border-radius: 20px;
+  padding: 24px;
   box-shadow: 
-    0 20px 40px rgba(0, 0, 0, 0.1),
-    0 0 0 1px rgba(255, 255, 255, 0.2);
-  max-width: 480px;
-  width: 100%;
-  border: 1px solid rgba(255, 255, 255, 0.3);
+    0 20px 40px rgba(0, 0, 0, 0.15),
+    0 0 0 1px rgba(0, 0, 0, 0.05);
+  width: 400px;
+  max-width: 400px;
+  margin: 0 auto;
+  overflow: hidden;
 }
 
+/* Header Section */
 .welcomeSection {
-  margin-bottom: 40px;
+  margin-bottom: 24px;
+  text-align: center;
 }
 
 .icon {
-  width: 80px;
-  height: 80px;
+  width: 60px;
+  height: 60px;
   background: linear-gradient(135deg, #667eea, #764ba2);
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 0 auto 24px;
-  box-shadow: 0 8px 24px rgba(102, 126, 234, 0.3);
+  margin: 0 auto 16px;
+  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.3);
 }
 
 .icon svg {
-  width: 32px;
-  height: 32px;
+  width: 24px;
+  height: 24px;
   color: white;
 }
 
 .title {
-  font-size: 32px;
+  font-size: 24px;
   font-weight: 700;
   color: #1a202c;
-  margin-bottom: 16px;
+  margin-bottom: 12px;
   background: linear-gradient(135deg, #2d3748, #4a5568);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -56,237 +58,266 @@
 }
 
 .welcomeText {
-  font-size: 18px;
+  font-size: 14px;
   color: #4a5568;
   margin-bottom: 8px;
   font-weight: 500;
 }
 
 .email {
-  font-size: 16px;
+  font-size: 13px;
   color: #718096;
   background: #f7fafc;
-  padding: 12px 20px;
-  border-radius: 12px;
+  padding: 8px 16px;
+  border-radius: 10px;
   display: inline-block;
   border: 1px solid #e2e8f0;
 }
 
-.loading {
-  font-size: 18px;
-  color: #718096;
-  text-align: center;
-  padding: 60px 20px;
-  background: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(20px);
-  border-radius: 24px;
-  margin: 20px;
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+/* Stats Section */
+.stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin: 20px 0;
 }
 
-/* Button Styles */
-.buttonGrid {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  margin-bottom: 32px;
-}
-
-.dashboardButton {
+.statCard {
   background: linear-gradient(135deg, #667eea, #764ba2);
   color: white;
-  border: none;
-  padding: 16px 24px;
+  padding: 16px;
   border-radius: 12px;
-  font-size: 16px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 16px rgba(102, 126, 234, 0.3);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  width: 100%;
+  text-align: center;
+  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
-.dashboardButton:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(102, 126, 234, 0.4);
+.statNumber {
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 6px;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
-.dashboardButton:active {
-  transform: translateY(0);
+.statLabel {
+  font-size: 12px;
+  opacity: 0.9;
+  font-weight: 500;
 }
 
-.dashboardButton.profile {
-  background: linear-gradient(135deg, #667eea, #764ba2);
-  box-shadow: 0 4px 16px rgba(118, 75, 162, 0.3);
-}
-
-.dashboardButton.secrets {
-  background: linear-gradient(135deg, #38b2ac, #319795);
-  box-shadow: 0 4px 16px rgba(56, 178, 172, 0.3);
-}
-
-.dashboardButton.friends {
-  background: linear-gradient(135deg, #f6ad55, #dd6b20);
-  box-shadow: 0 4px 16px rgba(246, 173, 85, 0.3);
-}
-
-.actionButtons {
+/* Search Section */
+.searchSortContainer {
   display: flex;
   flex-direction: column;
   gap: 12px;
-  margin-top: 24px;
+  margin-bottom: 20px;
 }
 
-.logoutButton {
-  background: linear-gradient(135deg, #e53e3e, #c53030);
-  color: white;
-  border: none;
-  padding: 16px 24px;
-  border-radius: 12px;
-  font-size: 16px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 16px rgba(229, 62, 62, 0.3);
+.searchBox {
+  position: relative;
   display: flex;
   align-items: center;
-  justify-content: center;
-  gap: 8px;
   width: 100%;
 }
 
-.logoutButton:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(229, 62, 62, 0.4);
-  background: linear-gradient(135deg, #c53030, #9b2c2c);
-}
-
-.logoutButton:active {
-  transform: translateY(0);
-}
-
-.deleteButton {
-  background: linear-gradient(135deg, #e53e3e, #c53030);
-  color: white;
-  border: none;
-  padding: 16px 24px;
-  border-radius: 12px;
-  font-size: 16px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 16px rgba(229, 62, 62, 0.3);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
+.searchInput {
   width: 100%;
-}
-
-.deleteButton:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(229, 62, 62, 0.4);
-  background: linear-gradient(135deg, #c53030, #9b2c2c);
-}
-
-.deleteButton:active {
-  transform: translateY(0);
-}
-
-.features {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 16px;
-  margin: 32px 0;
-}
-
-.feature {
-  background: #f7fafc;
-  padding: 20px;
-  border-radius: 12px;
-  border: 1px solid #e2e8f0;
-  transition: all 0.3s ease;
-}
-
-.feature:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
-  border-color: #667eea;
-}
-
-.featureIcon {
-  width: 40px;
-  height: 40px;
-  background: linear-gradient(135deg, #667eea, #764ba2);
+  padding: 12px 12px 12px 40px;
+  border: 2px solid #e2e8f0;
   border-radius: 10px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 0 auto 12px;
+  font-size: 14px;
+  background: #ffffff;
+  color: #1a202c;
+  transition: all 0.3s ease;
+  outline: none;
+  font-family: inherit;
 }
 
-.featureIcon svg {
-  width: 20px;
-  height: 20px;
+.searchInput:focus {
+  border-color: #667eea;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.searchInput::placeholder {
+  color: #9ca3af;
+  font-size: 14px;
+}
+
+.searchBox svg {
+  position: absolute;
+  left: 12px;
+  width: 16px;
+  height: 16px;
+  color: #667eea;
+  z-index: 1;
+}
+
+.sortSelect {
+  padding: 12px;
+  border: 2px solid #e2e8f0;
+  border-radius: 10px;
+  font-size: 14px;
+  background: #ffffff;
+  color: #1a202c;
+  cursor: pointer;
+  outline: none;
+  transition: all 0.3s ease;
+  width: 100%;
+  font-family: inherit;
+}
+
+.sortSelect:focus {
+  border-color: #667eea;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+/* Pokémon Card */
+.pokemonCard {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 16px;
+  padding: 20px;
   color: white;
+  box-shadow: 0 6px 24px rgba(102, 126, 234, 0.3);
+  margin-bottom: 20px;
 }
 
-.featureTitle {
-  font-size: 14px;
-  font-weight: 600;
-  color: #2d3748;
-  margin-bottom: 4px;
-}
-
-.featureDesc {
-  font-size: 12px;
-  color: #718096;
-}
-
-/* Status Message Styles */
-.statusMessage {
-  padding: 12px 16px;
-  border-radius: 12px;
-  font-size: 14px;
-  font-weight: 500;
+.pokemonHeader {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   text-align: center;
   margin-bottom: 16px;
-  border: 1px solid;
+  gap: 12px;
 }
 
-.statusSuccess {
-  background: #f0fdf4;
-  color: #000000;
-  border-color: #bbf7d0;
+.pokemonInfo {
+  flex: 1;
 }
 
-.statusError {
-  background: #fef2f2;
-  color: #dc2626;
-  border-color: #fecaca;
+.pokemonName {
+  font-size: 22px;
+  font-weight: 700;
+  margin-bottom: 8px;
+  letter-spacing: -0.025em;
 }
 
-/* Textarea Styles */
+.pokemonTypes {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.pokemonType {
+  padding: 4px 10px;
+  border-radius: 16px;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: white;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+.pokemonImage {
+  flex-shrink: 0;
+}
+
+.pokemonImg {
+  width: 80px;
+  height: 80px;
+  object-fit: contain;
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
+}
+
+.pokemonDetails {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border-radius: 10px;
+  padding: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.detailGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+
+.detailItem {
+  text-align: center;
+}
+
+.detailLabel {
+  display: block;
+  font-size: 10px;
+  font-weight: 600;
+  opacity: 0.8;
+  margin-bottom: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.detailValue {
+  display: block;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+/* Reviews Section */
+.reviewsContainer {
+  background: white;
+  border-radius: 14px;
+  border: 1px solid #e2e8f0;
+  overflow: hidden;
+  margin-bottom: 20px;
+}
+
+.reviewsHeader {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 16px;
+  background: #f8fafc;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.sectionTitle {
+  font-size: 18px;
+  font-weight: 600;
+  color: #1a202c;
+  margin: 0;
+  text-align: center;
+}
+
+.reviewControls {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  justify-content: center;
+}
+
+.addReviewSection {
+  padding: 16px;
+  border-bottom: 1px solid #e2e8f0;
+  background: #f7fafc;
+}
+
 .textareaContainer {
-  margin-bottom: 24px;
+  margin-bottom: 16px;
 }
 
 .textarea {
   width: 100%;
-  padding: 16px;
+  padding: 12px;
   border: 2px solid #e2e8f0;
-  border-radius: 12px;
-  font-size: 16px;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  border-radius: 10px;
+  font-size: 14px;
+  font-family: inherit;
   background: #ffffff;
   color: #1a202c;
   resize: vertical;
-  min-height: 120px;
+  min-height: 100px;
   transition: all 0.3s ease;
   outline: none;
 }
@@ -298,31 +329,32 @@
 
 .textarea::placeholder {
   color: #9ca3af;
+  font-size: 14px;
 }
 
-/* Save Button */
+/* Buttons */
 .saveButton {
   background: linear-gradient(135deg, #38b2ac, #319795);
   color: white;
   border: none;
-  padding: 16px 24px;
-  border-radius: 12px;
-  font-size: 16px;
+  padding: 12px 20px;
+  border-radius: 10px;
+  font-size: 14px;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
-  box-shadow: 0 4px 16px rgba(56, 178, 172, 0.3);
+  box-shadow: 0 4px 12px rgba(56, 178, 172, 0.3);
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
+  gap: 6px;
   width: 100%;
-  margin-top: 16px;
+  margin-top: 12px;
 }
 
 .saveButton:hover:not(:disabled) {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(56, 178, 172, 0.4);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(56, 178, 172, 0.4);
 }
 
 .saveButton:disabled {
@@ -331,576 +363,74 @@
   transform: none;
 }
 
-/* Back Button */
 .backButton {
   background: linear-gradient(135deg, #667eea, #764ba2);
   color: white;
   border: none;
-  padding: 16px 24px;
-  border-radius: 12px;
-  font-size: 16px;
+  padding: 12px 20px;
+  border-radius: 10px;
+  font-size: 14px;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
-  box-shadow: 0 4px 16px rgba(102, 126, 234, 0.3);
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
+  gap: 6px;
   width: 100%;
 }
 
 .backButton:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(102, 126, 234, 0.4);
-}
-
-/* Action Buttons Container */
-.actionButtons {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  margin-top: 24px;
-}
-
-/* Message Counter */
-.messageCounter {
-  text-align: right;
-  font-size: 14px;
-  color: #6b7280;
-  margin-top: 8px;
-}
-
-.messageCounter.warning {
-  color: #dc2626;
-}
-
-/* Tab Navigation */
-.tabContainer {
-  display: flex;
-  gap: 8px;
-  margin-bottom: 32px;
-  border-bottom: 2px solid #e2e8f0;
-  padding-bottom: 8px;
-}
-
-.tabButton {
-  background: none;
-  border: none;
-  padding: 12px 20px;
-  border-radius: 8px;
-  font-size: 14px;
-  font-weight: 500;
-  color: #4a5568;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.tabButton:hover {
-  background: #f7fafc;
-  color: #2d3748;
-}
-
-.tabActive {
-  background: #667eea;
-  color: white;
-}
-
-/* Sections */
-.section {
-  margin-bottom: 32px;
-}
-
-.sectionTitle {
-  font-size: 20px;
-  font-weight: 600;
-  color: #1a202c;
-  margin-bottom: 16px;
-}
-
-.emptyState {
-  text-align: center;
-  color: #718096;
-  padding: 40px 20px;
-  background: #f7fafc;
-  border-radius: 12px;
-  border: 2px dashed #e2e8f0;
-}
-
-/* Friends Grid */
-.friendsGrid {
-  display: grid;
-  gap: 12px;
-}
-
-.friendCard {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 16px;
-  background: #f7fafc;
-  border-radius: 12px;
-  border: 1px solid #e2e8f0;
-}
-
-.friendIcon {
-  width: 40px;
-  height: 40px;
-  background: linear-gradient(135deg, #667eea, #764ba2);
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.friendIcon svg {
-  width: 20px;
-  height: 20px;
-  color: white;
-}
-
-.friendInfo {
-  flex: 1;
-}
-
-.friendName {
-  display: block;
-  font-weight: 600;
-  color: #1a202c;
-  margin-bottom: 4px;
-}
-
-.friendStatus {
-  font-size: 12px;
-  color: #718096;
-}
-
-/* Requests List */
-.requestsList {
-  display: grid;
-  gap: 12px;
-}
-
-.requestCard {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 16px;
-  background: #f7fafc;
-  border-radius: 12px;
-  border: 1px solid #e2e8f0;
-}
-
-.requestInfo {
-  flex: 1;
-}
-
-.requestName {
-  display: block;
-  font-weight: 600;
-  color: #1a202c;
-  margin-bottom: 4px;
-}
-
-.requestText {
-  font-size: 14px;
-  color: #718096;
-}
-
-.acceptButton {
-  background: linear-gradient(135deg, #38b2ac, #319795);
-  color: white;
-  border: none;
-  padding: 8px 16px;
-  border-radius: 8px;
-  font-size: 14px;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.acceptButton:hover {
   transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(102, 126, 234, 0.4);
 }
 
-/* Users Grid */
-.usersGrid {
-  display: grid;
-  gap: 12px;
-}
-
-.userCard {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 16px;
-  background: #f7fafc;
-  border-radius: 12px;
-  border: 1px solid #e2e8f0;
-}
-
-.userIcon {
-  width: 40px;
-  height: 40px;
-  background: linear-gradient(135deg, #f6ad55, #dd6b20);
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.userIcon svg {
-  width: 20px;
-  height: 20px;
-  color: white;
-}
-
-.userInfo {
-  flex: 1;
-}
-
-.userName {
-  font-weight: 600;
-  color: #1a202c;
-}
-
-.addButton {
-  background: linear-gradient(135deg, #667eea, #764ba2);
-  color: white;
-  border: none;
-  padding: 8px 16px;
-  border-radius: 8px;
-  font-size: 14px;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.addButton:hover {
-  transform: translateY(-1px);
-}
-
-/* Enhanced Responsive Design */
-@media (max-width: 768px) {
-  .container {
-    padding: 16px;
-  }
-  
-  .content {
-    padding: 32px 24px;
-    margin: 0;
-    border-radius: 20px;
-  }
-  
-  .title {
-    font-size: 28px;
-    margin-bottom: 12px;
-  }
-  
-  .welcomeText {
-    font-size: 16px;
-  }
-  
-  .icon {
-    width: 64px;
-    height: 64px;
-    margin-bottom: 20px;
-  }
-  
-  .icon svg {
-    width: 24px;
-    height: 24px;
-  }
-  
-  .buttonGrid {
-    gap: 12px;
-    margin-bottom: 24px;
-  }
-  
-  .dashboardButton,
-  .logoutButton,
-  .deleteButton,
-  .saveButton,
-  .backButton {
-    padding: 14px 20px;
-    font-size: 15px;
-  }
-  
-  .features {
-    grid-template-columns: 1fr;
-    gap: 12px;
-    margin: 24px 0;
-  }
-  
-  .welcomeSection {
-    margin-bottom: 32px;
-  }
-  
-  .textarea {
-    padding: 14px;
-    font-size: 15px;
-    min-height: 100px;
-  }
-  
-  .statusMessage {
-    padding: 10px 14px;
-    font-size: 13px;
-  }
-  
-  .tabContainer {
-    flex-direction: column;
-    gap: 4px;
-  }
-  
-  .friendCard,
-  .requestCard,
-  .userCard {
-    flex-direction: column;
-    text-align: center;
-    gap: 8px;
-  }
-  
-  .requestCard {
-    align-items: stretch;
-  }
-}
-
-@media (max-width: 480px) {
-  .container {
-    padding: 12px;
-  }
-  
-  .content {
-    padding: 24px 20px;
-    border-radius: 16px;
-  }
-  
-  .title {
-    font-size: 24px;
-  }
-  
-  .welcomeText {
-    font-size: 15px;
-  }
-  
-  .icon {
-    width: 56px;
-    height: 56px;
-    margin-bottom: 16px;
-  }
-  
-  .icon svg {
-    width: 20px;
-    height: 20px;
-  }
-  
-  .dashboardButton,
-  .logoutButton,
-  .deleteButton,
-  .saveButton,
-  .backButton {
-    padding: 12px 16px;
-    font-size: 14px;
-  }
-  
-  .buttonGrid {
-    gap: 10px;
-    margin-bottom: 20px;
-  }
-  
-  .actionButtons {
-    gap: 10px;
-    margin-top: 20px;
-  }
-  
-  .textarea {
-    padding: 12px;
-    font-size: 14px;
-    min-height: 80px;
-  }
-  
-  .actionButtons {
-    gap: 10px;
-    margin-top: 20px;
-  }
-}
-
-@media (max-width: 320px) {
-  .content {
-    padding: 20px 16px;
-  }
-  
-  .title {
-    font-size: 22px;
-  }
-  
-  .dashboardButton,
-  .logoutButton,
-  .deleteButton,
-  .saveButton,
-  .backButton {
-    padding: 10px 14px;
-    font-size: 13px;
-  }
-
-.pokemonCard {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  border-radius: 20px;
-  padding: 24px;
-  color: white;
-  box-shadow: 0 8px 32px rgba(102, 126, 234, 0.3);
-}
-
-.pokemonHeader {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  margin-bottom: 20px;
-}
-
-.pokemonInfo {
-  flex: 1;
-}
-
-.pokemonName {
-  font-size: 28px;
-  font-weight: 700;
-  margin-bottom: 12px;
-  letter-spacing: -0.025em;
-}
-
-.pokemonTypes {
-  display: flex;
-  gap: 8px;
-}
-
-.pokemonType {
-  padding: 6px 12px;
-  border-radius: 20px;
-  font-size: 12px;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  color: white;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-}
-
-.pokemonImage {
-  flex-shrink: 0;
-  margin-left: 20px;
-}
-
-.pokemonImg {
-  width: 120px;
-  height: 120px;
-  object-fit: contain;
-  filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.3));
-}
-
-.pokemonDetails {
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(10px);
-  border-radius: 12px;
-  padding: 16px;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-}
-
-.detailGrid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 16px;
-}
-
-.detailItem {
-  text-align: center;
-}
-
-.detailLabel {
-  display: block;
-  font-size: 12px;
-  font-weight: 600;
-  opacity: 0.8;
-  margin-bottom: 4px;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-}
-
-.detailValue {
-  display: block;
-  font-size: 18px;
-  font-weight: 700;
-}
-
-/* Reviews Container */
-.reviewsContainer {
-  background: white;
-  border-radius: 16px;
-  border: 1px solid #e2e8f0;
-  overflow: hidden;
-}
-
-.reviewsHeader {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 24px;
-  background: #f8fafc;
-  border-bottom: 1px solid #e2e8f0;
-}
-
-.reviewControls {
-  display: flex;
-  gap: 12px;
-  align-items: center;
-}
-
-.addReviewSection {
-  padding: 24px;
-  border-bottom: 1px solid #e2e8f0;
-  background: #f7fafc;
-}
-
+/* Reviews List */
 .reviewsList {
-  padding: 24px;
+  padding: 16px;
+  max-height: 300px;
+  overflow-y: auto;
 }
 
 .reviewCard {
   background: white;
   border: 1px solid #e2e8f0;
-  border-radius: 12px;
-  padding: 20px;
-  margin-bottom: 16px;
+  border-radius: 10px;
+  padding: 16px;
+  margin-bottom: 12px;
   transition: all 0.3s ease;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
 }
 
 .reviewCard:hover {
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
   transform: translateY(-1px);
 }
 
 .reviewContent {
   color: #1a202c;
-  font-size: 16px;
-  line-height: 1.6;
-  margin-bottom: 16px;
+  font-size: 14px;
+  line-height: 1.5;
+  margin-bottom: 12px;
   word-break: break-word;
 }
 
 .reviewFooter {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  flex-direction: column;
+  gap: 8px;
 }
 
 .reviewDate {
-  font-size: 14px;
+  font-size: 12px;
   color: #718096;
 }
 
 .reviewActions {
   display: flex;
-  gap: 8px;
+  gap: 6px;
+  align-self: flex-end;
 }
 
 .reviewAction {
@@ -909,9 +439,9 @@
   gap: 4px;
   background: none;
   border: none;
-  padding: 6px 12px;
+  padding: 4px 8px;
   border-radius: 6px;
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 500;
   cursor: pointer;
   transition: all 0.2s ease;
@@ -930,81 +460,207 @@
   background: #fef2f2;
 }
 
-/* Loading Animation */
+/* Empty State */
+.emptyState {
+  text-align: center;
+  color: #718096;
+  padding: 32px 16px;
+  background: #f7fafc;
+  border-radius: 10px;
+  border: 2px dashed #e2e8f0;
+}
+
+.emptyState svg {
+  margin-bottom: 12px;
+  opacity: 0.6;
+  width: 40px;
+  height: 40px;
+}
+
+.emptyState p {
+  font-size: 14px;
+  font-weight: 500;
+  margin: 0;
+}
+
+/* Loading States */
+.loading {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(20px);
+  border-radius: 20px;
+  padding: 40px 16px;
+  text-align: center;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 16px 32px rgba(0, 0, 0, 0.1);
+  margin: 0;
+}
+
 .loadingSpinner {
-  width: 48px;
-  height: 48px;
+  width: 40px;
+  height: 40px;
   border: 3px solid #e2e8f0;
   border-top: 3px solid #667eea;
   border-radius: 50%;
   animation: spin 1s linear infinite;
-  margin: 0 auto 16px;
+  margin: 0 auto 12px;
 }
 
+.loading h2 {
+  font-size: 18px;
+  font-weight: 600;
+  color: #1a202c;
+  margin-bottom: 6px;
+}
+
+.loading p {
+  font-size: 14px;
+  color: #718096;
+}
+
+/* Animations */
 @keyframes spin {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
 }
 
-/* Responsive Design for Pokémon App */
-@media (max-width: 768px) {
-  .pokemonHeader {
-    flex-direction: column;
-    text-align: center;
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
   }
-  
-  .pokemonImage {
-    margin: 16px 0 0 0;
-    order: -1;
-  }
-  
-  .pokemonImg {
-    width: 100px;
-    height: 100px;
-  }
-  
-  .detailGrid {
-    grid-template-columns: 1fr;
-    gap: 12px;
-  }
-  
-  .reviewsHeader {
-    flex-direction: column;
-    gap: 16px;
-    align-items: stretch;
-  }
-  
-  .reviewControls {
-    justify-content: flex-end;
-  }
-  
-  .reviewFooter {
-    flex-direction: column;
-    gap: 12px;
-    align-items: flex-start;
-  }
-  
-  .reviewActions {
-    align-self: flex-end;
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
-@media (max-width: 480px) {
+.pokemonCard,
+.reviewsContainer,
+.statCard {
+  animation: fadeIn 0.5s ease-out;
+}
+
+/* Action Buttons Container */
+.actionButtons {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+/* Search Button */
+.searchButton {
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  width: 100%;
+  margin: 0;
+}
+
+.searchButton:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(102, 126, 234, 0.4);
+}
+
+/* Custom Scrollbar for Reviews */
+.reviewsList::-webkit-scrollbar {
+  width: 4px;
+}
+
+.reviewsList::-webkit-scrollbar-track {
+  background: #f1f5f9;
+  border-radius: 2px;
+}
+
+.reviewsList::-webkit-scrollbar-thumb {
+  background: #cbd5e0;
+  border-radius: 2px;
+}
+
+.reviewsList::-webkit-scrollbar-thumb:hover {
+  background: #a0aec0;
+}
+
+/* Focus States for Accessibility */
+.searchInput:focus,
+.sortSelect:focus,
+.textarea:focus {
+  outline: none;
+}
+
+/* Button States Enhancement */
+.saveButton:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Responsive adjustments for very small screens */
+@media (max-width: 420px) {
+  .container {
+    padding: 12px;
+  }
+  
+  .content {
+    padding: 20px;
+    width: 100%;
+    max-width: 400px;
+  }
+  
+  .pokemonHeader {
+    gap: 10px;
+  }
+  
+  .pokemonImg {
+    width: 70px;
+    height: 70px;
+  }
+  
+  .detailGrid {
+    gap: 8px;
+  }
+  
+  .detailValue {
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 360px) {
+  .content {
+    padding: 16px;
+  }
+  
+  .title {
+    font-size: 22px;
+  }
+  
+  .stats {
+    grid-template-columns: 1fr;
+  }
+  
   .pokemonCard {
-    padding: 20px;
+    padding: 16px;
   }
   
-  .pokemonName {
-    font-size: 24px;
+  .reviewsHeader {
+    padding: 12px;
   }
   
-  .pokemonTypes {
-    justify-content: center;
+  .addReviewSection {
+    padding: 12px;
   }
   
-  .reviewsHeader,
-  .addReviewSection,
   .reviewsList {
-    padding: 20px;
+    padding: 12px;
   }
 }

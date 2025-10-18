@@ -3,11 +3,12 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { supabase } from "../lib/supabaseClient";
+import type { User } from "@supabase/supabase-js";
 import styles from "./../CSS/Home.module.css";
 
 export default function HomePage() {
   const router = useRouter();
-  const [user, setUser] = useState<any>(null);
+  const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -23,7 +24,8 @@ export default function HomePage() {
 
     checkUser();
 
-    const { data: listener } = supabase.auth.onAuthStateChange((_event, session) => {
+    // Listen for auth state changes (login/logout)
+    const { data: subscription } = supabase.auth.onAuthStateChange((_event, session) => {
       if (!session?.user) {
         router.replace("/auth");
       } else {
@@ -31,7 +33,10 @@ export default function HomePage() {
       }
     });
 
-    return () => listener.subscription.unsubscribe();
+    // Clean up listener
+    return () => {
+      subscription?.subscription.unsubscribe();
+    };
   }, [router]);
 
   const handleLogout = async () => {
@@ -42,7 +47,7 @@ export default function HomePage() {
 
   const handleDeleteAccount = async () => {
     if (!confirm("Are you sure you want to delete your account? This action cannot be undone.")) return;
-    alert("❌ Account deletion must be done via a server function (Supabase admin API).");
+    alert("❌ Account deletion must be handled via a Supabase Admin API (server-side).");
   };
 
   if (loading) {
@@ -61,6 +66,11 @@ export default function HomePage() {
   return (
     <div className={styles.container}>
       <div className={styles.content}>
+        {/* Notice Banner */}
+        <div className={styles.noticeBanner}>
+          ⚠️ Note: I’m fixing my Supabase bucket tomorrow — anything related to uploading photos is still not working for now.
+        </div>
+
         {/* Welcome Section */}
         <div className={styles.welcomeSection}>
           <h1 className={styles.title}>Welcome back!</h1>

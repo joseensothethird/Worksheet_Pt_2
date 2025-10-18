@@ -1,30 +1,31 @@
 /* Modern Food Review App Styles */
 .container {
   min-height: 100vh;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: white;
   padding: 20px;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
 }
 
 .content {
-  background: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(20px);
+  background: white;
   border-radius: 24px;
   padding: 0;
   box-shadow: 
-    0 20px 40px rgba(0, 0, 0, 0.1),
-    0 0 0 1px rgba(255, 255, 255, 0.2);
-  max-width: 1200px;
-  width: 100%;
-  border: 1px solid rgba(255, 255, 255, 0.3);
+    0 25px 50px -12px rgba(0, 0, 0, 0.25),
+    0 0 0 1px rgba(255, 255, 255, 0.1);
+  width: 400px;
+  margin: 0;
   overflow: hidden;
 }
 
 /* Hero Section */
 .heroSection {
-  background: linear-gradient(135deg, #f6ad55 0%, #dd6b20 100%);
+  background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%);
   color: white;
-  padding: 60px 40px;
+  padding: 40px 24px;
   text-align: center;
   position: relative;
   overflow: hidden;
@@ -37,7 +38,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='0.1'%3E%3Cpath d='M0 0h40v40H0V0zm1 1h38v38H1V1z'/%3E%3C/g%3E%3C/svg%3E");
+  background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M30 0l30 30-30 30L0 30z'/%3E%3C/g%3E%3C/svg%3E");
 }
 
 .heroIcon {
@@ -48,88 +49,105 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 0 auto 24px;
+  margin: 0 auto 20px;
   backdrop-filter: blur(10px);
-  border: 2px solid rgba(255, 255, 255, 0.3);
+  border: 3px solid rgba(255, 255, 255, 0.3);
+  font-size: 32px;
 }
 
 .heroTitle {
-  font-size: 48px;
+  font-size: 2rem;
   font-weight: 800;
-  margin-bottom: 16px;
+  margin-bottom: 12px;
   letter-spacing: -0.025em;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .heroSubtitle {
-  font-size: 20px;
+  font-size: 1rem;
   font-weight: 500;
   margin-bottom: 24px;
   opacity: 0.9;
+  line-height: 1.4;
 }
 
 .userBadge {
   display: inline-flex;
   align-items: center;
-  gap: 12px;
+  gap: 8px;
   background: rgba(255, 255, 255, 0.2);
-  padding: 12px 20px;
+  padding: 10px 16px;
   border-radius: 50px;
   backdrop-filter: blur(10px);
   border: 1px solid rgba(255, 255, 255, 0.3);
+  transition: all 0.3s ease;
+}
+
+.userBadge:hover {
+  background: rgba(255, 255, 255, 0.25);
+  transform: translateY(-2px);
 }
 
 .userAvatar {
-  width: 32px;
-  height: 32px;
+  width: 28px;
+  height: 28px;
   background: white;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-weight: 600;
-  color: #dd6b20;
+  font-weight: 700;
+  color: #ee5a24;
+  font-size: 14px;
 }
 
 .userEmail {
-  font-weight: 500;
+  font-weight: 600;
+  font-size: 12px;
 }
 
 /* Stats Overview */
 .statsOverview {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
-  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 32px 24px;
   background: white;
-  border-bottom: 1px solid #e2e8f0;
+  border-bottom: 1px solid #f1f5f9;
 }
 
 .statItem {
   display: flex;
   align-items: center;
   gap: 16px;
-  padding: 24px;
-  background: #f7fafc;
+  padding: 20px;
+  background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
   border-radius: 16px;
   border: 1px solid #e2e8f0;
-  transition: all 0.3s ease;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
 }
 
 .statItem:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  transform: translateY(-4px);
+  box-shadow: 
+    0 12px 24px rgba(0, 0, 0, 0.1),
+    0 0 0 1px rgba(102, 126, 234, 0.1);
   border-color: #667eea;
+  background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
 }
 
 .statIcon {
   width: 48px;
   height: 48px;
-  background: linear-gradient(135deg, #667eea, #764ba2);
+  background: linear-gradient(135deg, #ff6b6b, #ee5a24);
   border-radius: 12px;
   display: flex;
   align-items: center;
   justify-content: center;
   color: white;
+  font-size: 20px;
+  flex-shrink: 0;
 }
 
 .statContent {
@@ -137,43 +155,51 @@
 }
 
 .statNumber {
-  font-size: 32px;
-  font-weight: 700;
-  color: #1a202c;
+  font-size: 1.75rem;
+  font-weight: 800;
+  color: #1e293b;
   line-height: 1;
   margin-bottom: 4px;
+  background: linear-gradient(135deg, #1e293b, #475569);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 .statLabel {
-  font-size: 14px;
-  color: #718096;
-  font-weight: 500;
+  font-size: 12px;
+  color: #64748b;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
 }
 
 /* Main Content Layout */
 .mainContent {
-  display: grid;
-  grid-template-columns: 320px 1fr;
-  gap: 0;
-  min-height: 600px;
+  display: flex;
+  flex-direction: column;
+  min-height: auto;
 }
 
 /* Sidebar */
 .sidebar {
   background: #f8fafc;
-  border-right: 1px solid #e2e8f0;
-  padding: 32px 24px;
+  border-bottom: 1px solid #e2e8f0;
+  padding: 24px;
+  position: relative;
 }
 
 .sidebarTitle {
   font-size: 16px;
-  font-weight: 600;
-  color: #1a202c;
+  font-weight: 700;
+  color: #1e293b;
   margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
 .uploadCard {
-  margin-bottom: 32px;
+  margin-bottom: 24px;
 }
 
 .uploadArea {
@@ -181,47 +207,75 @@
   flex-direction: column;
   align-items: center;
   gap: 16px;
-  padding: 32px 24px;
+  padding: 24px;
   background: white;
   border: 2px dashed #cbd5e0;
   border-radius: 16px;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.uploadArea::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(102, 126, 234, 0.1), transparent);
+  transition: left 0.6s;
 }
 
 .uploadArea:hover {
   border-color: #667eea;
-  background: #f7fafc;
+  background: #f8fafc;
+  transform: translateY(-2px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+}
+
+.uploadArea:hover::before {
+  left: 100%;
 }
 
 .uploadIcon {
-  width: 64px;
-  height: 64px;
+  width: 60px;
+  height: 60px;
   background: linear-gradient(135deg, #667eea, #764ba2);
   border-radius: 16px;
   display: flex;
   align-items: center;
   justify-content: center;
   color: white;
+  font-size: 24px;
+  transition: all 0.3s ease;
+}
+
+.uploadArea:hover .uploadIcon {
+  transform: scale(1.1);
 }
 
 .uploadTitle {
-  font-weight: 600;
-  color: #1a202c;
-  margin-bottom: 4px;
+  font-weight: 700;
+  color: #1e293b;
+  margin-bottom: 6px;
+  font-size: 16px;
 }
 
 .uploadSubtitle {
-  font-size: 14px;
-  color: #718096;
+  font-size: 12px;
+  color: #64748b;
+  line-height: 1.4;
 }
 
 .recentReviewsCard {
   background: white;
   border-radius: 16px;
-  padding: 24px;
+  padding: 20px;
   border: 1px solid #e2e8f0;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
 
 .recentReviewsList {
@@ -231,52 +285,67 @@
 }
 
 .recentReviewItem {
-  padding: 12px;
-  background: #f7fafc;
-  border-radius: 8px;
+  padding: 16px;
+  background: #f8fafc;
+  border-radius: 12px;
   border: 1px solid #e2e8f0;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.recentReviewItem:hover {
+  transform: translateX(4px);
+  border-color: #667eea;
+  background: white;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 .reviewPreview {
-  font-size: 14px;
-  color: #1a202c;
-  margin-bottom: 4px;
+  font-size: 13px;
+  color: #1e293b;
+  margin-bottom: 6px;
   line-height: 1.4;
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
+  font-weight: 500;
 }
 
 .reviewTime {
-  font-size: 12px;
-  color: #718096;
+  font-size: 11px;
+  color: #64748b;
+  font-weight: 600;
 }
 
 .noRecentReviews {
   text-align: center;
-  color: #718096;
-  font-size: 14px;
-  padding: 20px;
+  color: #64748b;
+  font-size: 13px;
+  padding: 24px 16px;
+  background: #f8fafc;
+  border-radius: 12px;
+  border: 2px dashed #e2e8f0;
 }
 
 /* Gallery Section */
 .gallerySection {
-  padding: 32px;
+  padding: 24px;
   background: white;
+  position: relative;
 }
 
 .galleryHeader {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 32px;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 24px;
 }
 
 .searchContainer {
   display: flex;
-  gap: 16px;
-  align-items: center;
+  flex-direction: column;
+  gap: 12px;
 }
 
 .searchBox {
@@ -286,39 +355,50 @@
 }
 
 .searchInput {
-  width: 300px;
+  width: 100%;
   padding: 12px 16px 12px 44px;
   border: 2px solid #e2e8f0;
   border-radius: 12px;
-  font-size: 16px;
-  background: #f7fafc;
-  color: #1a202c;
+  font-size: 14px;
+  background: #f8fafc;
+  color: #1e293b;
   transition: all 0.3s ease;
   outline: none;
+  font-weight: 500;
 }
 
 .searchInput:focus {
   border-color: #667eea;
   background: white;
-  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+  box-shadow: 
+    0 0 0 3px rgba(102, 126, 234, 0.1),
+    0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.searchInput::placeholder {
+  color: #94a3b8;
 }
 
 .searchBox svg {
   position: absolute;
   left: 16px;
-  color: #9ca3af;
+  color: #64748b;
+  width: 16px;
+  height: 16px;
 }
 
 .sortSelect {
   padding: 12px 16px;
   border: 2px solid #e2e8f0;
   border-radius: 12px;
-  font-size: 14px;
-  background: #f7fafc;
-  color: #1a202c;
+  font-size: 13px;
+  background: #f8fafc;
+  color: #1e293b;
   cursor: pointer;
   outline: none;
-  min-width: 140px;
+  width: 100%;
+  font-weight: 600;
+  transition: all 0.3s ease;
 }
 
 .sortSelect:focus {
@@ -328,38 +408,44 @@
 
 .viewControls {
   display: flex;
-  gap: 8px;
-  background: #f7fafc;
+  gap: 6px;
+  background: #f1f5f9;
   padding: 4px;
   border-radius: 12px;
+  border: 2px solid #e2e8f0;
+  align-self: center;
 }
 
 .viewButton {
   display: flex;
   align-items: center;
-  gap: 8px;
-  padding: 8px 16px;
+  gap: 6px;
+  padding: 8px 12px;
   border: none;
   background: none;
   border-radius: 8px;
-  font-size: 14px;
-  font-weight: 500;
-  color: #718096;
+  font-size: 12px;
+  font-weight: 600;
+  color: #64748b;
   cursor: pointer;
   transition: all 0.3s ease;
+  min-width: 80px;
+  justify-content: center;
 }
 
 .viewButtonActive {
   background: white;
-  color: #1a202c;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  color: #1e293b;
+  box-shadow: 
+    0 2px 8px rgba(0, 0, 0, 0.1),
+    0 0 0 1px rgba(102, 126, 234, 0.1);
 }
 
 /* Food Grid */
 .foodGrid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-  gap: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
 
 .foodCard {
@@ -367,19 +453,24 @@
   border: 1px solid #e2e8f0;
   border-radius: 20px;
   overflow: hidden;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 
+    0 2px 12px rgba(0, 0, 0, 0.08),
+    0 0 0 1px rgba(0, 0, 0, 0.02);
+  position: relative;
 }
 
 .foodCard:hover {
   transform: translateY(-4px);
-  box-shadow: 0 16px 32px rgba(0, 0, 0, 0.1);
+  box-shadow: 
+    0 16px 32px -8px rgba(0, 0, 0, 0.2),
+    0 0 0 1px rgba(102, 126, 234, 0.1);
   border-color: #667eea;
 }
 
 .foodImage {
   position: relative;
-  height: 240px;
+  height: 200px;
   overflow: hidden;
 }
 
@@ -387,7 +478,7 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.3s ease;
+  transition: all 0.3s ease;
 }
 
 .foodCard:hover .foodImg {
@@ -400,13 +491,17 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0.8) 100%);
+  background: linear-gradient(to bottom, 
+    rgba(0,0,0,0.3) 0%, 
+    rgba(0,0,0,0.1) 30%,
+    rgba(0,0,0,0) 70%,
+    rgba(0,0,0,0.8) 100%);
   display: flex;
   align-items: flex-end;
   justify-content: flex-end;
   padding: 16px;
   opacity: 0;
-  transition: opacity 0.3s ease;
+  transition: all 0.3s ease;
 }
 
 .foodCard:hover .foodOverlay {
@@ -419,22 +514,30 @@
 }
 
 .foodAction {
-  background: rgba(255, 255, 255, 0.9);
+  background: rgba(255, 255, 255, 0.95);
   border: none;
   padding: 8px;
   border-radius: 8px;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all 0.3s ease;
   color: #374151;
+  font-size: 16px;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .foodAction:hover {
   background: white;
-  transform: scale(1.1);
+  transform: scale(1.1) translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
 .deleteAction {
   color: #dc2626;
+}
+
+.deleteAction:hover {
+  background: #fef2f2;
 }
 
 .foodContent {
@@ -446,26 +549,31 @@
   justify-content: space-between;
   align-items: flex-start;
   margin-bottom: 16px;
+  gap: 12px;
 }
 
 .foodName {
-  font-weight: 600;
-  color: #1a202c;
-  font-size: 18px;
+  font-weight: 700;
+  color: #1e293b;
+  font-size: 16px;
   margin: 0;
   flex: 1;
+  line-height: 1.3;
 }
 
 .foodDate {
-  font-size: 12px;
-  color: #718096;
+  font-size: 11px;
+  color: #64748b;
   white-space: nowrap;
-  margin-left: 12px;
+  font-weight: 600;
+  background: #f1f5f9;
+  padding: 4px 8px;
+  border-radius: 12px;
 }
 
 /* Reviews Section */
 .reviewsSection {
-  border-top: 1px solid #e2e8f0;
+  border-top: 1px solid #f1f5f9;
   padding-top: 16px;
 }
 
@@ -478,29 +586,36 @@
 
 .reviewsTitle {
   font-size: 14px;
-  font-weight: 600;
-  color: #1a202c;
+  font-weight: 700;
+  color: #1e293b;
   margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 6px;
 }
 
 .addReviewButton {
-  background: linear-gradient(135deg, #38b2ac, #319795);
+  background: linear-gradient(135deg, #10b981, #059669);
   color: white;
   border: none;
-  padding: 6px 12px;
+  padding: 8px 12px;
   border-radius: 8px;
-  font-size: 12px;
-  font-weight: 500;
+  font-size: 11px;
+  font-weight: 700;
   cursor: pointer;
   transition: all 0.3s ease;
   display: flex;
   align-items: center;
   gap: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
 }
 
 .addReviewButton:hover {
   transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(56, 178, 172, 0.3);
+  box-shadow: 
+    0 4px 12px rgba(16, 185, 129, 0.3),
+    0 0 0 1px rgba(16, 185, 129, 0.1);
 }
 
 .reviewsList {
@@ -510,23 +625,44 @@
 }
 
 .reviewCard {
-  background: #f7fafc;
+  background: #f8fafc;
   border: 1px solid #e2e8f0;
-  border-radius: 8px;
-  padding: 12px;
-  transition: all 0.2s ease;
+  border-radius: 10px;
+  padding: 16px;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.reviewCard::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background: linear-gradient(to bottom, #667eea, #764ba2);
+  opacity: 0;
+  transition: opacity 0.3s ease;
 }
 
 .reviewCard:hover {
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  background: white;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+  transform: translateX(2px);
+}
+
+.reviewCard:hover::before {
+  opacity: 1;
 }
 
 .reviewContent {
-  color: #1a202c;
-  font-size: 14px;
+  color: #1e293b;
+  font-size: 13px;
   line-height: 1.4;
   margin-bottom: 8px;
   word-break: break-word;
+  font-weight: 500;
 }
 
 .reviewFooter {
@@ -536,32 +672,36 @@
 }
 
 .reviewDate {
-  font-size: 11px;
-  color: #718096;
+  font-size: 10px;
+  color: #64748b;
+  font-weight: 600;
 }
 
 .reviewActions {
   display: flex;
-  gap: 8px;
+  gap: 6px;
 }
 
 .reviewAction {
   background: none;
   border: none;
   padding: 4px 8px;
-  border-radius: 4px;
-  font-size: 11px;
+  border-radius: 6px;
+  font-size: 10px;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all 0.3s ease;
   color: #667eea;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
 }
 
 .reviewAction:hover {
-  background: #f7fafc;
+  background: #f1f5f9;
 }
 
 .reviewDelete {
-  color: #e53e3e;
+  color: #dc2626;
 }
 
 .reviewDelete:hover {
@@ -570,57 +710,68 @@
 
 .noReviews {
   text-align: center;
-  color: #718096;
-  font-size: 14px;
-  padding: 20px;
-  background: #f7fafc;
-  border-radius: 8px;
-  border: 1px dashed #e2e8f0;
+  color: #64748b;
+  font-size: 13px;
+  padding: 24px 16px;
+  background: #f8fafc;
+  border-radius: 10px;
+  border: 2px dashed #e2e8f0;
+  font-weight: 500;
 }
 
 .moreReviews {
   text-align: center;
   color: #667eea;
   font-size: 12px;
-  font-weight: 500;
-  padding: 8px;
-  background: #f7fafc;
-  border-radius: 6px;
+  font-weight: 700;
+  padding: 10px;
+  background: #f8fafc;
+  border-radius: 8px;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all 0.3s ease;
+  border: 1px solid #e2e8f0;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
 }
 
 .moreReviews:hover {
-  background: #edf2f7;
+  background: #f1f5f9;
+  color: #5a67d8;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 /* Empty State */
 .emptyState {
-  grid-column: 1 / -1;
   text-align: center;
-  color: #718096;
-  padding: 80px 40px;
-  background: #f7fafc;
+  color: #64748b;
+  padding: 40px 24px;
+  background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
   border-radius: 16px;
   border: 2px dashed #e2e8f0;
+  margin: 24px 0;
 }
 
 .emptyIcon {
-  margin-bottom: 24px;
+  margin-bottom: 20px;
+  font-size: 48px;
 }
 
 .emptyState h3 {
-  font-size: 24px;
-  font-weight: 600;
-  color: #4a5568;
+  font-size: 20px;
+  font-weight: 800;
+  color: #1e293b;
   margin-bottom: 12px;
+  background: linear-gradient(135deg, #1e293b, #475569);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 .emptyState p {
-  font-size: 16px;
+  font-size: 14px;
   margin: 0;
-  max-width: 400px;
-  margin: 0 auto;
+  line-height: 1.4;
+  font-weight: 500;
 }
 
 /* Loading State */
@@ -629,14 +780,17 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 24px;
-  padding: 80px 40px;
+  gap: 20px;
+  padding: 60px 24px;
+  background: white;
+  border-radius: 16px;
+  margin: 16px;
 }
 
 .loadingSpinner {
   width: 48px;
   height: 48px;
-  border: 3px solid #e2e8f0;
+  border: 3px solid #f1f5f9;
   border-top: 3px solid #667eea;
   border-radius: 50%;
   animation: spin 1s linear infinite;
@@ -648,21 +802,26 @@
 }
 
 .loading h2 {
-  font-size: 24px;
-  font-weight: 600;
-  color: #1a202c;
+  font-size: 20px;
+  font-weight: 800;
+  color: #1e293b;
   margin: 0;
+  background: linear-gradient(135deg, #1e293b, #475569);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 .loading p {
-  color: #718096;
+  color: #64748b;
   margin: 0;
+  font-size: 14px;
+  font-weight: 500;
 }
 
 /* Action Buttons */
 .actionButtons {
-  padding: 32px;
-  border-top: 1px solid #e2e8f0;
+  padding: 24px;
+  border-top: 1px solid #f1f5f9;
   background: #f8fafc;
 }
 
@@ -672,91 +831,38 @@
   border: none;
   padding: 16px 24px;
   border-radius: 12px;
-  font-size: 16px;
-  font-weight: 600;
+  font-size: 14px;
+  font-weight: 700;
   cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 16px rgba(102, 126, 234, 0.3);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 
+    0 4px 16px rgba(102, 126, 234, 0.3),
+    0 0 0 1px rgba(102, 126, 234, 0.1);
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
   width: 100%;
-  max-width: 300px;
-  margin: 0 auto;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
 }
 
 .backButton:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(102, 126, 234, 0.4);
+  box-shadow: 
+    0 8px 24px rgba(102, 126, 234, 0.4),
+    0 0 0 1px rgba(102, 126, 234, 0.2);
 }
 
-/* Responsive Design */
-@media (max-width: 1024px) {
-  .mainContent {
-    grid-template-columns: 280px 1fr;
-  }
-  
-  .foodGrid {
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  }
-}
-
-@media (max-width: 768px) {
-  .content {
-    margin: 16px;
-  }
-  
-  .heroSection {
-    padding: 40px 24px;
-  }
-  
-  .heroTitle {
-    font-size: 36px;
-  }
-  
-  .statsOverview {
-    grid-template-columns: 1fr;
-    padding: 24px;
-    gap: 16px;
-  }
-  
-  .mainContent {
-    grid-template-columns: 1fr;
-  }
-  
-  .sidebar {
-    border-right: none;
-    border-bottom: 1px solid #e2e8f0;
-  }
-  
-  .galleryHeader {
-    flex-direction: column;
-    gap: 16px;
-    align-items: stretch;
-  }
-  
-  .searchContainer {
-    justify-content: space-between;
-  }
-  
-  .searchInput {
-    width: 200px;
-  }
-  
-  .foodGrid {
-    grid-template-columns: 1fr;
-  }
-}
-
+/* Responsive Design for 400px width */
 @media (max-width: 480px) {
   .container {
     padding: 12px;
   }
   
   .content {
-    margin: 8px;
-    border-radius: 16px;
+    width: 100%;
+    max-width: 400px;
   }
   
   .heroSection {
@@ -764,35 +870,26 @@
   }
   
   .heroTitle {
-    font-size: 28px;
+    font-size: 1.5rem;
   }
   
   .heroSubtitle {
-    font-size: 16px;
+    font-size: 0.9rem;
   }
   
   .statsOverview {
     padding: 20px;
   }
   
-  .statItem {
+  .sidebar {
     padding: 20px;
   }
   
   .gallerySection {
-    padding: 24px;
+    padding: 20px;
   }
   
-  .searchContainer {
-    flex-direction: column;
-    gap: 12px;
-  }
-  
-  .searchInput {
-    width: 100%;
-  }
-  
-  .viewControls {
-    align-self: center;
+  .foodImage {
+    height: 180px;
   }
 }

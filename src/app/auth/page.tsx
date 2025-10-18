@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { supabase } from "../../lib/supabaseClient";
 import styles from "../../CSS/auth.module.css";
+import type { AuthError } from "@supabase/supabase-js";
 
 export default function AuthForm() {
   const router = useRouter();
@@ -14,46 +15,56 @@ export default function AuthForm() {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
-  // Check if already logged in
+  // 🔐 Check if already logged in
   useEffect(() => {
     const checkUser = async () => {
-      const { data } = await supabase.auth.getUser();
-      if (data.user) router.replace("/");
+      const { data: userData, error } = await supabase.auth.getUser();
+      if (error) {
+        console.error("Auth check error:", error.message);
+        return;
+      }
+      if (userData?.user) router.replace("/");
     };
     checkUser();
   }, [router]);
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
     setError("");
 
     try {
       if (isLogin) {
-        // LOGIN
-        const { data, error } = await supabase.auth.signInWithPassword({
+        // 🔑 LOGIN
+        const { error: signInError } = await supabase.auth.signInWithPassword({
           email,
           password,
         });
-        if (error) throw error;
+
+        if (signInError) throw signInError;
+
         router.replace("/");
       } else {
-        // REGISTER
+        // 📝 REGISTER
         if (password !== confirmPassword) {
           setError("Passwords do not match.");
           setLoading(false);
           return;
         }
-        const { data, error } = await supabase.auth.signUp({
+
+        const { error: signUpError } = await supabase.auth.signUp({
           email,
           password,
         });
-        if (error) throw error;
+
+        if (signUpError) throw signUpError;
+
         alert("✅ Registration successful! Please verify your email before logging in.");
         setIsLogin(true);
       }
-    } catch (err: any) {
-      setError(err.message || "Something went wrong.");
+    } catch (err) {
+      const authError = err as AuthError;
+      setError(authError.message || "Something went wrong.");
     } finally {
       setLoading(false);
     }
@@ -80,7 +91,9 @@ export default function AuthForm() {
           {error && <div className={styles.errorMessage}>{error}</div>}
 
           <div className={styles.inputGroup}>
-            <label htmlFor="email" className={styles.inputLabel}>Email</label>
+            <label htmlFor="email" className={styles.inputLabel}>
+              Email
+            </label>
             <input
               id="email"
               type="email"
@@ -94,7 +107,9 @@ export default function AuthForm() {
           </div>
 
           <div className={styles.inputGroup}>
-            <label htmlFor="password" className={styles.inputLabel}>Password</label>
+            <label htmlFor="password" className={styles.inputLabel}>
+              Password
+            </label>
             <input
               id="password"
               type="password"
