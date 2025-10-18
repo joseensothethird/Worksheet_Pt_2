@@ -1,9 +1,9 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { supabase } from "@/app/lib/supabaseClient";
+import { supabase } from "./../../../lib/supabaseClient";
 import ReactMarkdown from "react-markdown";
-import styles from "@/app/CSS/Home.module.css";
+import styles from "./../../../CSS/activities.module.css";
 
 interface Note {
   id: string;

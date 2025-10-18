@@ -743,340 +743,268 @@
     font-size: 13px;
   }
 
-/*todo-list*/
+.pokemonCard {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 20px;
+  padding: 24px;
+  color: white;
+  box-shadow: 0 8px 32px rgba(102, 126, 234, 0.3);
+}
 
-.todoItem {
+.pokemonHeader {
   display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 16px;
-  background: #f7fafc;
-  border-radius: 12px;
-  border: 1px solid #e2e8f0;
-  transition: all 0.3s ease;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 20px;
 }
 
-.todoItem:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-}
-
-.todoCheckbox {
-  width: 20px;
-  height: 20px;
-  border: 2px solid #667eea;
-  border-radius: 50%;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.todoCheckbox.checked {
-  background: #667eea;
-}
-
-.todoText {
+.pokemonInfo {
   flex: 1;
-  font-size: 16px;
-  color: #1a202c;
-  cursor: pointer;
 }
 
-.todoText.completed {
-  text-decoration: line-through;
-  color: #718096;
+.pokemonName {
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 12px;
+  letter-spacing: -0.025em;
 }
 
-.todoActions {
+.pokemonTypes {
   display: flex;
   gap: 8px;
 }
 
-/* Stats Section */
-.stats {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 16px;
-  margin-bottom: 24px;
+.pokemonType {
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: white;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
 }
 
-.statCard {
-  background: #f7fafc;
-  padding: 20px;
+.pokemonImage {
+  flex-shrink: 0;
+  margin-left: 20px;
+}
+
+.pokemonImg {
+  width: 120px;
+  height: 120px;
+  object-fit: contain;
+  filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.3));
+}
+
+.pokemonDetails {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
   border-radius: 12px;
-  border: 1px solid #e2e8f0;
+  padding: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.detailGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+.detailItem {
   text-align: center;
 }
 
-.statNumber {
-  font-size: 24px;
-  font-weight: 700;
-  color: #667eea;
+.detailLabel {
+  display: block;
+  font-size: 12px;
+  font-weight: 600;
+  opacity: 0.8;
   margin-bottom: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
 }
 
-.statLabel {
+.detailValue {
+  display: block;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+/* Reviews Container */
+.reviewsContainer {
+  background: white;
+  border-radius: 16px;
+  border: 1px solid #e2e8f0;
+  overflow: hidden;
+}
+
+.reviewsHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24px;
+  background: #f8fafc;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.reviewControls {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.addReviewSection {
+  padding: 24px;
+  border-bottom: 1px solid #e2e8f0;
+  background: #f7fafc;
+}
+
+.reviewsList {
+  padding: 24px;
+}
+
+.reviewCard {
+  background: white;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 16px;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.reviewCard:hover {
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  transform: translateY(-1px);
+}
+
+.reviewContent {
+  color: #1a202c;
+  font-size: 16px;
+  line-height: 1.6;
+  margin-bottom: 16px;
+  word-break: break-word;
+}
+
+.reviewFooter {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.reviewDate {
   font-size: 14px;
   color: #718096;
 }
 
-/* Progress Bar */
-.progressBar {
-  width: 100%;
-  height: 8px;
-  background: #e2e8f0;
-  border-radius: 4px;
-  overflow: hidden;
-  margin: 16px 0;
-}
-
-.progressFill {
-  height: 100%;
-  background: linear-gradient(135deg, #38b2ac, #319795);
-  transition: width 0.3s ease;
-}
-
-/* Quick Actions */
-.quickActions {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 12px;
-  margin-bottom: 24px;
-}
-
-.quickAction {
-  background: #f7fafc;
-  border: 1px solid #e2e8f0;
-  padding: 12px;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  text-align: center;
-}
-
-.quickAction:hover {
-  background: #667eea;
-  color: white;
-  transform: translateY(-2px);
-}
-/* Google Drive  */
-.uploadSection {
-  margin-bottom: 24px;
-}
-
-.uploadButton {
-  background: linear-gradient(135deg, #667eea, #764ba2);
-  color: white;
-  border: none;
-  padding: 16px 24px;
-  border-radius: 12px;
-  font-size: 16px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 16px rgba(102, 126, 234, 0.3);
+.reviewActions {
   display: flex;
-  align-items: center;
-  justify-content: center;
   gap: 8px;
-  width: 100%;
-  margin-bottom: 16px;
 }
 
-.uploadButton:hover:not(:disabled) {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(102, 126, 234, 0.4);
-}
-
-.uploadButton:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
-  transform: none;
-}
-
-.searchSortContainer {
-  display: flex;
-  gap: 16px;
-  margin-bottom: 24px;
-  align-items: center;
-}
-
-.searchBox {
-  flex: 1;
-  position: relative;
+.reviewAction {
   display: flex;
   align-items: center;
-}
-
-.searchInput {
-  width: 100%;
-  padding: 16px 16px 16px 48px;
-  border: 2px solid #e2e8f0;
-  border-radius: 12px;
-  font-size: 16px;
-  background: #ffffff;
-  color: #1a202c;
-  transition: all 0.3s ease;
-  outline: none;
-}
-
-.searchInput:focus {
-  border-color: #667eea;
-  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
-}
-
-.searchBox svg {
-  position: absolute;
-  left: 16px;
-  color: #9ca3af;
-}
-
-.sortSelect {
-  padding: 16px;
-  border: 2px solid #e2e8f0;
-  border-radius: 12px;
-  font-size: 16px;
-  background: #ffffff;
-  color: #1a202c;
-  cursor: pointer;
-  outline: none;
-  min-width: 160px;
-}
-
-.sortSelect:focus {
-  border-color: #667eea;
-  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
-}
-
-/* Gallery Grid */
-.galleryGrid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: 20px;
-  margin-top: 16px;
-}
-
-.photoCard {
-  background: #f7fafc;
-  border: 1px solid #e2e8f0;
-  border-radius: 12px;
-  padding: 16px;
-  transition: all 0.3s ease;
-  text-align: center;
-}
-
-.photoCard:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
-  border-color: #667eea;
-}
-
-.photoImage {
-  position: relative;
-  margin-bottom: 12px;
-  border-radius: 8px;
-  overflow: hidden;
-}
-
-.photoImg {
-  width: 100%;
-  height: 150px;
-  object-fit: cover;
-  border-radius: 8px;
-  transition: transform 0.3s ease;
-}
-
-.photoCard:hover .photoImg {
-  transform: scale(1.05);
-}
-
-.photoOverlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.7);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 12px;
-  opacity: 0;
-  transition: opacity 0.3s ease;
-}
-
-.photoCard:hover .photoOverlay {
-  opacity: 1;
-}
-
-.photoAction {
-  background: rgba(255, 255, 255, 0.9);
+  gap: 4px;
+  background: none;
   border: none;
-  padding: 8px;
+  padding: 6px 12px;
   border-radius: 6px;
+  font-size: 12px;
+  font-weight: 500;
   cursor: pointer;
   transition: all 0.2s ease;
-  color: #374151;
+  color: #667eea;
 }
 
-.photoAction:hover {
-  background: white;
-  transform: scale(1.1);
+.reviewAction:hover {
+  background: #f7fafc;
 }
 
 .deleteAction {
-  color: #dc2626;
+  color: #e53e3e;
 }
 
-.photoInfo {
-  text-align: left;
+.deleteAction:hover {
+  background: #fef2f2;
 }
 
-.photoName {
-  font-weight: 600;
-  color: #1a202c;
-  margin-bottom: 4px;
-  word-break: break-word;
+/* Loading Animation */
+.loadingSpinner {
+  width: 48px;
+  height: 48px;
+  border: 3px solid #e2e8f0;
+  border-top: 3px solid #667eea;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin: 0 auto 16px;
 }
 
-.photoDate {
-  font-size: 12px;
-  color: #718096;
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }
 
-/* Responsive Design for Gallery */
+/* Responsive Design for Pokémon App */
 @media (max-width: 768px) {
-  .searchSortContainer {
+  .pokemonHeader {
     flex-direction: column;
+    text-align: center;
+  }
+  
+  .pokemonImage {
+    margin: 16px 0 0 0;
+    order: -1;
+  }
+  
+  .pokemonImg {
+    width: 100px;
+    height: 100px;
+  }
+  
+  .detailGrid {
+    grid-template-columns: 1fr;
     gap: 12px;
   }
   
-  .sortSelect {
-    width: 100%;
-  }
-  
-  .galleryGrid {
-    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  .reviewsHeader {
+    flex-direction: column;
     gap: 16px;
+    align-items: stretch;
   }
   
-  .photoImg {
-    height: 120px;
+  .reviewControls {
+    justify-content: flex-end;
+  }
+  
+  .reviewFooter {
+    flex-direction: column;
+    gap: 12px;
+    align-items: flex-start;
+  }
+  
+  .reviewActions {
+    align-self: flex-end;
   }
 }
 
 @media (max-width: 480px) {
-  .galleryGrid {
-    grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
-    gap: 12px;
+  .pokemonCard {
+    padding: 20px;
   }
   
-  .photoCard {
-    padding: 12px;
+  .pokemonName {
+    font-size: 24px;
   }
   
-  .photoImg {
-    height: 100px;
+  .pokemonTypes {
+    justify-content: center;
+  }
+  
+  .reviewsHeader,
+  .addReviewSection,
+  .reviewsList {
+    padding: 20px;
   }
 }

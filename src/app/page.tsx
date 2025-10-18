@@ -74,46 +74,46 @@ export default function HomePage() {
             className={`${styles.dashboardButton} ${styles.profile}`}
             onClick={() => router.push("/Activities/Act_1")}
           >
-            ✅ To-do List
+            To-do List
           </button>
 
           <button
             className={`${styles.dashboardButton} ${styles.secrets}`}
             onClick={() => router.push("/Activities/Act_2")}
           >
-            📁 Google Drive Lite
+            Google Drive Lite
           </button>
 
           <button
             className={`${styles.dashboardButton} ${styles.friends}`}
             onClick={() => router.push("/Activities/Act_3")}
           >
-            🍽️ Food Review App
+            Food Review App
           </button>
 
           <button
             className={styles.dashboardButton}
             onClick={() => router.push("/Activities/Act_4")}
           >
-            🐱 Pokémon Review
+            Pokémon Review
           </button>
 
           <button
             className={styles.dashboardButton}
             onClick={() => router.push("/Activities/Act_5")}
           >
-            📝 Markdown Notes
+            Markdown Notes
           </button>
         </div>
 
         {/* Action Buttons */}
         <div className={styles.actionButtons}>
           <button className={styles.logoutButton} onClick={handleLogout}>
-            🚪 Sign Out
+            Sign Out
           </button>
 
           <button className={styles.deleteButton} onClick={handleDeleteAccount}>
-            🗑️ Delete Account
+            Delete Account
           </button>
         </div>
       </div>
