@@ -110,88 +110,87 @@ export default function Act1Page() {
     );
   }
 
-// Update your component's JSX to use the new CSS classes:
+  return (
+    <div className={styles.container}>
+      <div className={styles.content}>
+        <div className={styles.welcomeSection}>
+          <h1 className={styles.title}>To-Do List</h1>
+          <p className={styles.welcomeText}>Manage your tasks efficiently</p>
+          <div className={styles.email}>{user?.email}</div>
+        </div>
 
-return (
-  <div className={styles.container}>
-    <div className={styles.content}>
-      <div className={styles.welcomeSection}>
-        <h1 className={styles.title}>To-Do List</h1>
-        <p className={styles.welcomeText}>Manage your tasks efficiently</p>
-        <div className={styles.email}>{user?.email}</div>
-      </div>
+        <div className={styles.section}>
+          <div className={styles.inputContainer}>
+            <input
+              type="text"
+              value={newTask}
+              placeholder="Enter a new task..."
+              onChange={(e) => setNewTask(e.target.value)}
+              className={styles.textarea}
+              onKeyDown={(e) => e.key === "Enter" && addTodo()}
+            />
+            <button
+              onClick={addTodo}
+              className={styles.saveButton}
+              disabled={!newTask.trim()}
+            >
+              Add
+            </button>
+          </div>
 
-      <div className={styles.section}>
-        <div className={styles.inputContainer}>
-          <input
-            type="text"
-            value={newTask}
-            placeholder="Enter a new task..."
-            onChange={(e) => setNewTask(e.target.value)}
-            className={styles.textarea}
-            onKeyDown={(e) => e.key === "Enter" && addTodo()}
-          />
+          {/* Todo Stats */}
+          <div className={styles.todoStats}>
+            <span className={styles.stat}>
+              Total: {todos.length}
+            </span>
+            <span className={`${styles.stat} ${styles.completed}`}>
+              Completed: {todos.filter(todo => todo.is_complete).length}
+            </span>
+            <span className={`${styles.stat} ${styles.pending}`}>
+              Pending: {todos.filter(todo => !todo.is_complete).length}
+            </span>
+          </div>
+
+          {todos.length === 0 ? (
+            <div className={styles.emptyState}>
+              <p>No tasks yet. Add your first task above!</p>
+            </div>
+          ) : (
+            <div className={styles.todoList}>
+              {todos.map((todo) => (
+                <div
+                  key={todo.id}
+                  className={`${styles.todoItem} ${todo.is_complete ? styles.completed : ''}`}
+                  onClick={() => toggleComplete(todo.id, todo.is_complete)}
+                >
+                  <div className={styles.todoContent}>
+                    <div className={styles.todoCheckbox} />
+                    <span className={styles.todoText}>{todo.task}</span>
+                  </div>
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      deleteTodo(todo.id);
+                    }}
+                    className={styles.deleteButton}
+                  >
+                    Delete
+                  </button>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+
+        <div className={styles.actionButtons}>
           <button
-            onClick={addTodo}
-            className={styles.saveButton}
-            disabled={!newTask.trim()}
+            className={styles.backButton}
+            onClick={() => window.history.back()}
           >
-            Add
+            Back to Dashboard
           </button>
         </div>
-
-        {/* Todo Stats */}
-        <div className={styles.todoStats}>
-          <span className={styles.stat}>
-            Total: {todos.length}
-          </span>
-          <span className={`${styles.stat} ${styles.completed}`}>
-            Completed: {todos.filter(todo => todo.is_complete).length}
-          </span>
-          <span className={`${styles.stat} ${styles.pending}`}>
-            Pending: {todos.filter(todo => !todo.is_complete).length}
-          </span>
-        </div>
-
-        {todos.length === 0 ? (
-          <div className={styles.emptyState}>
-            <p>No tasks yet. Add your first task above!</p>
-          </div>
-        ) : (
-          <div className={styles.todoList}>
-            {todos.map((todo) => (
-              <div
-                key={todo.id}
-                className={`${styles.todoItem} ${todo.is_complete ? styles.completed : ''}`}
-                onClick={() => toggleComplete(todo.id, todo.is_complete)}
-              >
-                <div className={styles.todoContent}>
-                  <div className={styles.todoCheckbox} />
-                  <span className={styles.todoText}>{todo.task}</span>
-                </div>
-                <button
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    deleteTodo(todo.id);
-                  }}
-                  className={styles.deleteButton}
-                >
-                  Delete
-                </button>
-              </div>
-            ))}
-          </div>
-        )}
-      </div>
-
-      <div className={styles.actionButtons}>
-        <button
-          className={styles.backButton}
-          onClick={() => window.history.back()}
-        >
-          Back to Dashboard
-        </button>
       </div>
     </div>
-  </div>
-);
+  );
+}

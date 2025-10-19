@@ -26,11 +26,7 @@ export default function FoodReviewApp() {
   const [user, setUser] = useState<User | null>(null);
   const [photos, setPhotos] = useState<FoodPhoto[]>([]);
   const [reviews, setReviews] = useState<Record<string, Review[]>>({});
-  const [sortBy, setSortBy] = useState<"name" | "created_at">("created_at");
-  const [search, setSearch] = useState("");
-  const [uploading, setUploading] = useState(false);
   const [loading, setLoading] = useState(true);
-  const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
 
   const fetchReviews = useCallback(async (foodId: string) => {
     const { data, error } = await supabase
@@ -51,7 +47,7 @@ export default function FoodReviewApp() {
         .from("food_photos")
         .select("*")
         .eq("user_id", userId)
-        .order(sortBy, { ascending: sortBy === "name" });
+        .order("created_at", { ascending: false });
 
       if (error) {
         console.error(error);
@@ -64,7 +60,7 @@ export default function FoodReviewApp() {
 
       for (const photo of data || []) fetchReviews(photo.id);
     },
-    [sortBy, fetchReviews]
+    [fetchReviews]
   );
 
   useEffect(() => {
@@ -87,8 +83,6 @@ export default function FoodReviewApp() {
         alert("No file or user found.");
         return;
       }
-
-      setUploading(true);
 
       const ext = file.name.split(".").pop();
       const filePath = `${user.id}/${Date.now()}.${ext}`;
@@ -123,8 +117,6 @@ export default function FoodReviewApp() {
         console.error("Upload failed:", err.message);
         alert("Upload failed: " + err.message);
       }
-    } finally {
-      setUploading(false);
     }
   };
 
@@ -163,41 +155,10 @@ export default function FoodReviewApp() {
     if (!error) fetchReviews(foodId);
   };
 
-  const editReview = async (id: string, content: string, foodId: string) => {
-    const updated = prompt("Edit your review:", content);
-    if (!updated || updated === content) return;
-
-    const { error } = await supabase
-      .from("reviews")
-      .update({ content: updated })
-      .eq("id", id);
-
-    if (!error) fetchReviews(foodId);
-  };
-
-  const deleteReview = async (id: string, foodId: string) => {
-    if (!confirm("Delete this review?")) return;
-    const { error } = await supabase.from("reviews").delete().eq("id", id);
-    if (!error) fetchReviews(foodId);
-  };
-
   const filteredPhotos = photos
-    .filter((p) => p.name.toLowerCase().includes(search.toLowerCase()))
-    .sort((a, b) =>
-      sortBy === "name"
-        ? a.name.localeCompare(b.name)
-        : new Date(b.created_at).getTime() -
-          new Date(a.created_at).getTime()
+    .sort((a, b) => 
+      new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
     );
-
-  const recentReviews = Object.values(reviews)
-    .flat()
-    .sort(
-      (a, b) =>
-        new Date(b.created_at).getTime() -
-        new Date(a.created_at).getTime()
-    )
-    .slice(0, 3);
 
   if (loading)
     return (
@@ -230,6 +191,19 @@ export default function FoodReviewApp() {
           )}
         </div>
 
+        {/* Upload Section */}
+        <div className={styles.uploadSection}>
+          <label className={styles.uploadButton}>
+            📸 Upload Food Photo
+            <input
+              type="file"
+              accept="image/*"
+              onChange={handleUpload}
+              style={{ display: "none" }}
+            />
+          </label>
+        </div>
+
         {/* Stats Overview */}
         <div className={styles.statsOverview}>
           <div className={styles.statItem}>
@@ -252,11 +226,9 @@ export default function FoodReviewApp() {
             <span>⭐</span>
             <div>
               <div className={styles.statNumber}>
-                {Math.round(
-                  photos.length > 0
-                    ? Object.values(reviews).flat().length / photos.length
-                    : 0
-                )}
+                {photos.length > 0
+                  ? (Object.values(reviews).flat().length / photos.length).toFixed(1)
+                  : "0.0"}
               </div>
               <div className={styles.statLabel}>Avg Reviews per Photo</div>
             </div>
@@ -292,6 +264,26 @@ export default function FoodReviewApp() {
               </div>
               <div className={styles.foodContent}>
                 <h3>{photo.name}</h3>
+                
+                {/* Reviews Section */}
+                <div className={styles.reviewsSection}>
+                  <h4>Reviews:</h4>
+                  {reviews[photo.id]?.length > 0 ? (
+                    <div className={styles.reviewsList}>
+                      {reviews[photo.id].map((review) => (
+                        <div key={review.id} className={styles.reviewItem}>
+                          <p className={styles.reviewContent}>{review.content}</p>
+                          <small className={styles.reviewDate}>
+                            {new Date(review.created_at).toLocaleDateString()}
+                          </small>
+                        </div>
+                      ))}
+                    </div>
+                  ) : (
+                    <p className={styles.noReviews}>No reviews yet</p>
+                  )}
+                </div>
+
                 <button
                   className={styles.addReviewButton}
                   onClick={() => addReview(photo.id)}
@@ -302,6 +294,14 @@ export default function FoodReviewApp() {
             </div>
           ))}
         </div>
+
+        {photos.length === 0 && !loading && (
+          <div className={styles.emptyState}>
+            <div className={styles.emptyIcon}>🍽️</div>
+            <h3>No Food Photos Yet</h3>
+            <p>Upload your first food photo to get started!</p>
+          </div>
+        )}
 
         <button
           className={styles.backButton}
