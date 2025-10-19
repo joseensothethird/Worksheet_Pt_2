@@ -28,10 +28,26 @@ export default function AuthForm() {
     checkUser();
   }, [router]);
 
+  const validateEmail = (email: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  const validatePassword = (password: string) => password.length >= 6;
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
     setError("");
+
+    // Basic validations before calling Supabase
+    if (!validateEmail(email)) {
+      setError("Please enter a valid email address.");
+      setLoading(false);
+      return;
+    }
+
+    if (!validatePassword(password)) {
+      setError("Password must be at least 6 characters long.");
+      setLoading(false);
+      return;
+    }
 
     try {
       if (isLogin) {
@@ -41,7 +57,12 @@ export default function AuthForm() {
           password,
         });
 
-        if (signInError) throw signInError;
+        if (signInError) {
+          if (signInError.message.toLowerCase().includes("invalid login")) {
+            throw new Error("Invalid email or password.");
+          }
+          throw signInError;
+        }
 
         router.replace("/");
       } else {
@@ -57,14 +78,19 @@ export default function AuthForm() {
           password,
         });
 
-        if (signUpError) throw signUpError;
+        if (signUpError) {
+          if (signUpError.message.toLowerCase().includes("email")) {
+            throw new Error("Invalid or already registered email address.");
+          }
+          throw signUpError;
+        }
 
         alert("✅ Registration successful! Please verify your email before logging in.");
         setIsLogin(true);
       }
     } catch (err) {
       const authError = err as AuthError;
-      setError(authError.message || "Something went wrong.");
+      setError(authError.message || "Something went wrong. Please try again.");
     } finally {
       setLoading(false);
     }
@@ -156,7 +182,10 @@ export default function AuthForm() {
         <div className={styles.registerPrompt}>
           <span
             className={styles.registerLink}
-            onClick={() => setIsLogin(!isLogin)}
+            onClick={() => {
+              setError("");
+              setIsLogin(!isLogin);
+            }}
             style={{ cursor: "pointer" }}
           >
             {isLogin ? "Create an account" : "Sign in instead"}
@@ -166,4 +195,3 @@ export default function AuthForm() {
     </div>
   );
 }
-   
