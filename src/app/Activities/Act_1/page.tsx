@@ -5,7 +5,7 @@ export const dynamic = "force-dynamic"; // ✅ prevents build crash
 import { useEffect, useState } from "react";
 import { supabase } from "./../../../lib/supabaseClient";
 import type { User } from "@supabase/supabase-js";
-import styles from "./../../../CSS/activities.module.css";
+import styles from "./../../../CSS/todo-list.module.css";
 
 interface Todo {
   id: number;
@@ -110,69 +110,88 @@ export default function Act1Page() {
     );
   }
 
-  return (
-    <div className={styles.container}>
-      <div className={styles.content}>
-        <div className={styles.welcomeSection}>
-          <h1 className={styles.title}>To-Do List</h1>
-          <p className={styles.welcomeText}>Manage your tasks efficiently</p>
-          <div className={styles.email}>{user?.email}</div>
+// Update your component's JSX to use the new CSS classes:
+
+return (
+  <div className={styles.container}>
+    <div className={styles.content}>
+      <div className={styles.welcomeSection}>
+        <h1 className={styles.title}>To-Do List</h1>
+        <p className={styles.welcomeText}>Manage your tasks efficiently</p>
+        <div className={styles.email}>{user?.email}</div>
+      </div>
+
+      <div className={styles.section}>
+        <div className={styles.inputContainer}>
+          <input
+            type="text"
+            value={newTask}
+            placeholder="Enter a new task..."
+            onChange={(e) => setNewTask(e.target.value)}
+            className={styles.textarea}
+            onKeyDown={(e) => e.key === "Enter" && addTodo()}
+          />
+          <button
+            onClick={addTodo}
+            className={styles.saveButton}
+            disabled={!newTask.trim()}
+          >
+            Add
+          </button>
         </div>
 
-        <div className={styles.section}>
-          <div style={{ display: "flex", gap: "12px", marginBottom: "24px" }}>
-            <input
-              type="text"
-              value={newTask}
-              placeholder="Enter a new task..."
-              onChange={(e) => setNewTask(e.target.value)}
-              className={styles.textarea}
-              onKeyDown={(e) => e.key === "Enter" && addTodo()}
-            />
-            <button
-              onClick={addTodo}
-              className={styles.saveButton}
-              disabled={!newTask.trim()}
-            >
-              Add
-            </button>
-          </div>
+        {/* Todo Stats */}
+        <div className={styles.todoStats}>
+          <span className={styles.stat}>
+            Total: {todos.length}
+          </span>
+          <span className={`${styles.stat} ${styles.completed}`}>
+            Completed: {todos.filter(todo => todo.is_complete).length}
+          </span>
+          <span className={`${styles.stat} ${styles.pending}`}>
+            Pending: {todos.filter(todo => !todo.is_complete).length}
+          </span>
+        </div>
 
-          {todos.length === 0 ? (
+        {todos.length === 0 ? (
+          <div className={styles.emptyState}>
             <p>No tasks yet. Add your first task above!</p>
-          ) : (
-            todos.map((todo) => (
-              <div key={todo.id} className={styles.friendCard}>
-                <div
-                  className={styles.friendInfo}
-                  onClick={() => toggleComplete(todo.id, todo.is_complete)}
-                  style={{
-                    textDecoration: todo.is_complete ? "line-through" : "none",
-                    cursor: "pointer",
-                  }}
-                >
-                  {todo.task}
+          </div>
+        ) : (
+          <div className={styles.todoList}>
+            {todos.map((todo) => (
+              <div
+                key={todo.id}
+                className={`${styles.todoItem} ${todo.is_complete ? styles.completed : ''}`}
+                onClick={() => toggleComplete(todo.id, todo.is_complete)}
+              >
+                <div className={styles.todoContent}>
+                  <div className={styles.todoCheckbox} />
+                  <span className={styles.todoText}>{todo.task}</span>
                 </div>
                 <button
-                  onClick={() => deleteTodo(todo.id)}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    deleteTodo(todo.id);
+                  }}
                   className={styles.deleteButton}
                 >
                   Delete
                 </button>
               </div>
-            ))
-          )}
-        </div>
+            ))}
+          </div>
+        )}
+      </div>
 
-        <div className={styles.actionButtons}>
-          <button
-            className={styles.backButton}
-            onClick={() => window.history.back()}
-          >
-            ← Back to Dashboard
-          </button>
-        </div>
+      <div className={styles.actionButtons}>
+        <button
+          className={styles.backButton}
+          onClick={() => window.history.back()}
+        >
+          Back to Dashboard
+        </button>
       </div>
     </div>
-  );
-}
+  </div>
+);

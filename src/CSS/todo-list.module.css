@@ -1,0 +1,391 @@
+.container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #fff;
+  padding: 20px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+.content {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(20px);
+  border-radius: 24px;
+  padding: 48px 40px;
+  text-align: center;
+  box-shadow: 
+    0 20px 40px rgba(0, 0, 0, 0.1),
+    0 0 0 1px rgba(255, 255, 255, 0.2);
+  max-width: 480px;
+  width: 100%;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.welcomeSection {
+  margin-bottom: 32px;
+  text-align: center;
+}
+
+.title {
+  font-size: 32px;
+  font-weight: 700;
+  color: #1a202c;
+  margin-bottom: 12px;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.welcomeText {
+  font-size: 16px;
+  color: #718096;
+  margin-bottom: 16px;
+  font-weight: 500;
+}
+
+.email {
+  font-size: 14px;
+  color: #718096;
+  background: #f8fafc;
+  padding: 8px 16px;
+  border-radius: 20px;
+  display: inline-block;
+  border: 1px solid #e2e8f0;
+  font-weight: 500;
+}
+
+/* Input and Add Button Styles */
+.inputContainer {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.textarea {
+  flex: 1;
+  padding: 16px;
+  border: 2px solid #e2e8f0;
+  border-radius: 12px;
+  font-size: 16px;
+  font-family: inherit;
+  background: #ffffff;
+  color: #1a202c;
+  outline: none;
+  transition: all 0.3s ease;
+}
+
+.textarea:focus {
+  border-color: #667eea;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.textarea::placeholder {
+  color: #9ca3af;
+}
+
+.saveButton {
+  background: linear-gradient(135deg, #48bb78, #38a169);
+  color: white;
+  border: none;
+  padding: 16px 24px;
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 16px rgba(72, 187, 120, 0.3);
+  white-space: nowrap;
+  min-width: 80px;
+}
+
+.saveButton:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(72, 187, 120, 0.4);
+}
+
+.saveButton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Todo List Styles */
+.todoList {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.todoItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px;
+  background: #ffffff;
+  border-radius: 12px;
+  border: 2px solid #f1f5f9;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.todoItem:hover {
+  border-color: #e2e8f0;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.todoItem.completed {
+  background: #f8fafc;
+  border-color: #e2e8f0;
+}
+
+.todoContent {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.todoCheckbox {
+  width: 20px;
+  height: 20px;
+  border: 2px solid #cbd5e0;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+}
+
+.todoItem.completed .todoCheckbox {
+  background: linear-gradient(135deg, #48bb78, #38a169);
+  border-color: #48bb78;
+}
+
+.todoCheckbox::after {
+  content: '✓';
+  color: white;
+  font-size: 12px;
+  font-weight: bold;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.todoItem.completed .todoCheckbox::after {
+  opacity: 1;
+}
+
+.todoText {
+  font-size: 16px;
+  color: #1a202c;
+  transition: all 0.3s ease;
+}
+
+.todoItem.completed .todoText {
+  text-decoration: line-through;
+  color: #718096;
+}
+
+.deleteButton {
+  background: linear-gradient(135deg, #fc8181, #f56565);
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(252, 129, 129, 0.3);
+  flex-shrink: 0;
+}
+
+.deleteButton:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(252, 129, 129, 0.4);
+  background: linear-gradient(135deg, #f56565, #e53e3e);
+}
+
+/* Empty State */
+.emptyState {
+  text-align: center;
+  color: #718096;
+  padding: 40px 20px;
+  background: #f8fafc;
+  border-radius: 12px;
+  border: 2px dashed #e2e8f0;
+}
+
+.emptyState p {
+  margin: 0;
+  font-size: 16px;
+}
+
+/* Action Buttons */
+.actionButtons {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.backButton {
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: white;
+  border: none;
+  padding: 16px 24px;
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 16px rgba(102, 126, 234, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+}
+
+.backButton:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(102, 126, 234, 0.4);
+}
+
+/* Loading State */
+.loading {
+  font-size: 18px;
+  color: #718096;
+  text-align: center;
+  padding: 60px 20px;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(20px);
+  border-radius: 24px;
+  margin: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+}
+
+/* Stats */
+.todoStats {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+  padding: 12px 16px;
+  background: #f8fafc;
+  border-radius: 12px;
+  border: 1px solid #e2e8f0;
+}
+
+.stat {
+  font-size: 14px;
+  color: #718096;
+  font-weight: 500;
+}
+
+.stat.completed {
+  color: #48bb78;
+}
+
+.stat.pending {
+  color: #ed8936;
+}
+
+/* Enhanced Responsive Design */
+@media (max-width: 768px) {
+  .container {
+    padding: 16px;
+    align-items: flex-start;
+  }
+  
+  .content {
+    padding: 32px 24px;
+    margin: 20px 0;
+    border-radius: 20px;
+  }
+  
+  .title {
+    font-size: 28px;
+  }
+  
+  .welcomeText {
+    font-size: 15px;
+  }
+  
+  .inputContainer {
+    flex-direction: column;
+  }
+  
+  .saveButton {
+    width: 100%;
+  }
+  
+  .todoItem {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  }
+  
+  .todoContent {
+    width: 100%;
+  }
+  
+  .deleteButton {
+    align-self: flex-end;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 12px;
+  }
+  
+  .content {
+    padding: 24px 20px;
+    border-radius: 16px;
+    margin: 16px 0;
+  }
+  
+  .title {
+    font-size: 24px;
+  }
+  
+  .welcomeText {
+    font-size: 14px;
+  }
+  
+  .textarea,
+  .saveButton,
+  .backButton {
+    padding: 14px 16px;
+    font-size: 15px;
+  }
+  
+  .todoStats {
+    flex-direction: column;
+    gap: 8px;
+    align-items: flex-start;
+  }
+}
+
+@media (max-width: 320px) {
+  .content {
+    padding: 20px 16px;
+  }
+  
+  .title {
+    font-size: 22px;
+  }
+  
+  .textarea,
+  .saveButton,
+  .backButton {
+    padding: 12px 14px;
+    font-size: 14px;
+  }
+}

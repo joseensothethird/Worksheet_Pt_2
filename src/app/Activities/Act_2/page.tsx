@@ -346,11 +346,14 @@ export default function DriveLitePage() {
           ))}
         </div>
 
-        <div className={styles.footerActions}>
-          <button className={styles.backButton} onClick={() => router.push("/")}>
-            ← Back to Dashboard
-          </button>
-        </div>
+        <div className={styles.actionButtons}>
+        <button
+          className={styles.backButton}
+          onClick={() => window.history.back()}
+        >
+          Back to Dashboard
+        </button>
+      </div>
       </div>
     </div>
   );

@@ -233,7 +233,7 @@ export default function PokemonReviewApp() {
         <div className={styles.section}>
           <div className={styles.searchSortContainer}>
             <div className={styles.searchBox}>
-              🔍
+              
               <input
                 type="text"
                 placeholder="Search Pokémon by name..."
@@ -406,7 +406,7 @@ export default function PokemonReviewApp() {
             className={styles.backButton}
             onClick={() => window.history.back()}
           >
-            ⬅ Back to Dashboard
+             Back to Dashboard
           </button>
         </div>
       </div>
