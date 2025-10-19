@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState, useCallback } from "react";
-import { supabase } from "@/lib/supabaseClient";
+import { supabase } from "./../../../lib/supabaseClient";
 import Image from "next/image";
 import styles from "./../../../CSS/food_review.module.css";
 import type { User } from "@supabase/supabase-js";
