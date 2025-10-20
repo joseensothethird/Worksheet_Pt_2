@@ -47,7 +47,7 @@ describe("AuthForm Component", () => {
     });
 
     render(<AuthForm />);
-    fireEvent.change(screen.getByLabelText(/email/i), { target: { value: "testuser@gmail.com" } });
+    fireEvent.change(screen.getByLabelText(/email/i), { target: { value: "jamesjebery@gmail.com" } });
     fireEvent.change(screen.getByLabelText(/password/i), { target: { value: "wrongpassword" } });
     fireEvent.click(screen.getByRole("button", { name: /sign in/i }));
 
@@ -61,9 +61,9 @@ describe("AuthForm Component", () => {
     render(<AuthForm />);
     fireEvent.click(screen.getByText(/create an account/i));
 
-    fireEvent.change(screen.getByLabelText(/email/i), { target: { value: "testuser@gmail.com" } });
-    fireEvent.change(screen.getByLabelText(/^password$/i), { target: { value: "123456" } });
-    fireEvent.change(screen.getByLabelText(/confirm password/i), { target: { value: "654321" } });
+    fireEvent.change(screen.getByLabelText(/email/i), { target: { value: "jamesjebery@gmail.com" } });
+    fireEvent.change(screen.getByLabelText(/^password$/i), { target: { value: "ensojose" } });
+    fireEvent.change(screen.getByLabelText(/confirm password/i), { target: { value: "differentpassword" } });
     fireEvent.click(screen.getByRole("button", { name: /register/i }));
 
     expect(await screen.findByText(/passwords do not match/i)).toBeInTheDocument();
@@ -81,19 +81,19 @@ describe("AuthForm Integration Tests", () => {
   // ✅ Integration Test 1: Successful login should redirect to "/"
   it("logs in successfully and redirects to /", async () => {
     (supabase.auth.signInWithPassword as jest.Mock).mockResolvedValueOnce({
-      data: { user: { id: "123", email: "testuser@gmail.com" } },
+      data: { user: { id: "123", email: "jamesjebery@gmail.com" } },
       error: null,
     });
 
     render(<AuthForm />);
-    fireEvent.change(screen.getByLabelText(/email/i), { target: { value: "testuser@gmail.com" } });
-    fireEvent.change(screen.getByLabelText(/password/i), { target: { value: "123456" } });
+    fireEvent.change(screen.getByLabelText(/email/i), { target: { value: "jamesjebery@gmail.com" } });
+    fireEvent.change(screen.getByLabelText(/password/i), { target: { value: "ensojose" } });
     fireEvent.click(screen.getByRole("button", { name: /sign in/i }));
 
     await waitFor(() => {
       expect(supabase.auth.signInWithPassword).toHaveBeenCalledWith({
-        email: "testuser@gmail.com",
-        password: "123456",
+        email: "jamesjebery@gmail.com",
+        password: "ensojose",
       });
       expect(mockReplace).toHaveBeenCalledWith("/");
     });
@@ -102,22 +102,22 @@ describe("AuthForm Integration Tests", () => {
   // ✅ Integration Test 2: Successful signup with valid info
   it("signs up successfully when registration info is valid", async () => {
     (supabase.auth.signUp as jest.Mock).mockResolvedValueOnce({
-      data: { user: { id: "1", email: "testuser@gmail.com" } },
+      data: { user: { id: "1", email: "jamesjebery@gmail.com" } },
       error: null,
     });
 
     render(<AuthForm />);
     fireEvent.click(screen.getByText(/create an account/i));
 
-    fireEvent.change(screen.getByLabelText(/email/i), { target: { value: "testuser@gmail.com" } });
-    fireEvent.change(screen.getByLabelText(/^password$/i), { target: { value: "abcdef" } });
-    fireEvent.change(screen.getByLabelText(/confirm password/i), { target: { value: "abcdef" } });
+    fireEvent.change(screen.getByLabelText(/email/i), { target: { value: "jamesjebery@gmail.com" } });
+    fireEvent.change(screen.getByLabelText(/^password$/i), { target: { value: "ensojose" } });
+    fireEvent.change(screen.getByLabelText(/confirm password/i), { target: { value: "ensojose" } });
     fireEvent.click(screen.getByRole("button", { name: /register/i }));
 
     await waitFor(() => {
       expect(supabase.auth.signUp).toHaveBeenCalledWith({
-        email: "testuser@gmail.com",
-        password: "abcdef",
+        email: "jamesjebery@gmail.com",
+        password: "ensojose",
       });
     });
   });
@@ -125,19 +125,19 @@ describe("AuthForm Integration Tests", () => {
   // ✅ Additional Test: Test with Gmail variations using the same base email
   it("handles Gmail address correctly", async () => {
     (supabase.auth.signInWithPassword as jest.Mock).mockResolvedValueOnce({
-      data: { user: { id: "456", email: "testuser@gmail.com" } },
+      data: { user: { id: "456", email: "jamesjebery@gmail.com" } },
       error: null,
     });
 
     render(<AuthForm />);
-    fireEvent.change(screen.getByLabelText(/email/i), { target: { value: "testuser@gmail.com" } });
-    fireEvent.change(screen.getByLabelText(/password/i), { target: { value: "password123" } });
+    fireEvent.change(screen.getByLabelText(/email/i), { target: { value: "jamesjebery@gmail.com" } });
+    fireEvent.change(screen.getByLabelText(/password/i), { target: { value: "ensojose" } });
     fireEvent.click(screen.getByRole("button", { name: /sign in/i }));
 
     await waitFor(() => {
       expect(supabase.auth.signInWithPassword).toHaveBeenCalledWith({
-        email: "testuser@gmail.com",
-        password: "password123",
+        email: "jamesjebery@gmail.com",
+        password: "ensojose",
       });
     });
   });
