@@ -1,8 +1,17 @@
-import type { NextConfig } from "next";
-
+/** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    domains: ["ozeufqjdjgoortwgmura.supabase.co"],
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'ozeufqjdjgoortwgmura.supabase.co',
+      },
+      {
+        protocol: 'https',
+        hostname: 'raw.githubusercontent.com',
+        pathname: '/PokeAPI/sprites/master/**',
+      },
+    ],
   },
 };
 

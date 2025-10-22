@@ -689,3 +689,434 @@
 .dropdownSelect:hover {
   border-color: #888;
 }
+/* Reviewed Pokémon List */
+/* Reviewed Pokémon List with Centered Images */
+.pokemonList {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+  gap: 12px;
+  padding: 12px;
+  background: #f7fafc;
+  border-radius: 10px;
+  border: 1px solid #e2e8f0;
+}
+
+.pokemonListItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  padding: 8px;
+  border: 2px solid #e2e8f0;
+  border-radius: 10px;
+  background: white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  text-transform: capitalize;
+}
+
+.pokemonListItem:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+  border-color: #667eea;
+}
+
+.pokemonListItem img {
+  width: 60px;
+  height: 60px;
+  object-fit: contain;
+  display: block;
+  margin: 0 auto;
+}
+
+.pokemonListItem span {
+  font-size: 12px;
+  color: #333;
+  text-align: center;
+}
+/*Review Modal*/
+/* Updated Modal Styles */
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+  animation: fadeIn 0.3s ease-out;
+  padding: 16px;
+}
+
+.modalContent {
+  background: white;
+  border-radius: 20px;
+  padding: 24px;
+  max-width: 400px;
+  width: 100%;
+  position: relative;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+  overflow-y: auto;
+  max-height: 90vh;
+  color: #1a202c;
+  animation: slideUp 0.3s ease-out;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.modalClose {
+  position: absolute;
+  top: 16px;
+  right: 20px;
+  font-size: 24px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #718096;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  z-index: 10;
+}
+
+.modalClose:hover {
+  background: #f7fafc;
+  color: #1a202c;
+}
+
+.modalPokemonCard {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.modalPokemonHeader {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+.modalPokemonName {
+  font-size: 24px;
+  font-weight: 700;
+  color: #1a202c;
+  margin: 0;
+  text-transform: capitalize;
+}
+
+.modalPokemonTypes {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.modalPokemonType {
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: white;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+  letter-spacing: 0.05em;
+}
+
+.modalPokemonImage {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 8px 0;
+}
+
+.modalPokemonImage img {
+  width: 160px;
+  height: 160px;
+  object-fit: contain;
+  filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.3));
+}
+
+/* Horizontal Stats Grid */
+.modalPokemonStats {
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  border-radius: 12px;
+  padding: 16px;
+  color: white;
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+  margin: 8px 0;
+}
+
+.modalStatsGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  text-align: center;
+}
+
+.modalStatItem {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.modalStatLabel {
+  font-size: 11px;
+  font-weight: 600;
+  opacity: 0.9;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.modalStatValue {
+  font-size: 16px;
+  font-weight: 700;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.modalAddReview {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid #e2e8f0;
+}
+
+.modalAddReview h3 {
+  font-size: 18px;
+  font-weight: 600;
+  color: #1a202c;
+  margin: 0;
+  text-align: center;
+}
+
+.modalTextarea {
+  width: 100%;
+  padding: 12px;
+  border: 2px solid #e2e8f0;
+  border-radius: 10px;
+  font-size: 14px;
+  font-family: inherit;
+  background: #ffffff;
+  color: #1a202c;
+  resize: vertical;
+  min-height: 80px;
+  transition: all 0.3s ease;
+  outline: none;
+}
+
+.modalTextarea:focus {
+  border-color: #667eea;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.modalTextarea::placeholder {
+  color: #9ca3af;
+  font-size: 14px;
+}
+
+.modalSaveButton {
+  background: linear-gradient(135deg, #38b2ac, #319795);
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(56, 178, 172, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  width: 100%;
+}
+
+.modalSaveButton:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(56, 178, 172, 0.4);
+}
+
+.modalSaveButton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.modalReviews {
+  margin-top: 20px;
+  text-align: left;
+  max-height: 250px;
+  overflow-y: auto;
+  border-top: 1px solid #e2e8f0;
+  padding-top: 16px;
+}
+
+.modalReviews h3 {
+  font-size: 18px;
+  font-weight: 600;
+  color: #1a202c;
+  margin: 0 0 12px 0;
+  text-align: center;
+}
+
+.modalReviewCard {
+  background: white;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  padding: 12px;
+  margin-bottom: 8px;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+}
+
+.modalReviewCard:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  transform: translateY(-1px);
+}
+
+.modalReviewContent {
+  color: #1a202c;
+  font-size: 14px;
+  line-height: 1.5;
+  margin-bottom: 8px;
+  word-break: break-word;
+}
+
+.modalReviewFooter {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 12px;
+  color: #718096;
+}
+
+.modalReviewActions {
+  display: flex;
+  gap: 8px;
+}
+
+.modalReviewAction {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-size: 11px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  color: #667eea;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.modalReviewAction:hover {
+  background: #f7fafc;
+}
+
+.modalDeleteAction {
+  color: #e53e3e;
+}
+
+.modalDeleteAction:hover {
+  background: #fef2f2;
+}
+
+/* Empty State for Reviews */
+.modalEmptyState {
+  text-align: center;
+  color: #718096;
+  padding: 20px;
+  background: #f7fafc;
+  border-radius: 10px;
+  border: 2px dashed #e2e8f0;
+}
+
+.modalEmptyState p {
+  font-size: 14px;
+  font-weight: 500;
+  margin: 0;
+}
+
+/* Custom Scrollbar for Modal Reviews */
+.modalReviews::-webkit-scrollbar {
+  width: 4px;
+}
+
+.modalReviews::-webkit-scrollbar-track {
+  background: #f1f5f9;
+  border-radius: 2px;
+}
+
+.modalReviews::-webkit-scrollbar-thumb {
+  background: #cbd5e0;
+  border-radius: 2px;
+}
+
+.modalReviews::-webkit-scrollbar-thumb:hover {
+  background: #a0aec0;
+}
+
+/* Responsive adjustments for modal */
+@media (max-width: 420px) {
+  .modalContent {
+    padding: 20px;
+    margin: 16px;
+  }
+  
+  .modalPokemonImage img {
+    width: 140px;
+    height: 140px;
+  }
+  
+  .modalStatsGrid {
+    gap: 8px;
+  }
+  
+  .modalStatValue {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 360px) {
+  .modalContent {
+    padding: 16px;
+  }
+  
+  .modalPokemonName {
+    font-size: 22px;
+  }
+  
+  .modalPokemonImage img {
+    width: 120px;
+    height: 120px;
+  }
+  
+  .modalStatsGrid {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+}
