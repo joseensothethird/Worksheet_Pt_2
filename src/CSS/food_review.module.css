@@ -689,3 +689,155 @@
     padding: 16px;
   }
 }
+/* Add these to your existing CSS file */
+
+/* Rating Styles */
+.ratingSection {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.ratingLabel {
+  font-weight: 600;
+  color: #000000;
+  font-size: 14px;
+}
+
+.starRating {
+  display: flex;
+  gap: 4px;
+}
+
+.star {
+  font-size: 24px;
+  color: #ddd;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.star.filled {
+  color: #ffc107;
+}
+
+.star.readonly {
+  cursor: default;
+}
+
+.ratingText {
+  font-size: 14px;
+  color: #000000;
+  margin-left: 8px;
+}
+
+/* Food Card Rating Styles */
+.foodMeta {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  align-items: flex-end;
+}
+
+.foodRating {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+}
+
+.avgRating {
+  font-weight: 600;
+  color: #000000;
+}
+
+.reviewCount {
+  color: #000000;
+  font-size: 12px;
+}
+
+/* Review Item Styles */
+.reviewHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 8px;
+}
+
+.reviewItem .starRating {
+  font-size: 16px;
+}
+
+.reviewDate {
+  color: #000000;
+  font-size: 12px;
+}
+
+/* Update existing styles for better spacing */
+.foodHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 12px;
+}
+
+.foodName {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 600;
+  color: #000000;
+}
+
+.statsOverview {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-bottom: 32px;
+}
+.ratingSection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 0;
+  background: #f9fafb;
+  border-radius: 12px;
+  border: 1px solid #e2e8f0;
+}
+
+.ratingLabel {
+  font-size: 14px;
+  font-weight: 600;
+  color: #1e293b;
+}
+
+.starRating {
+  display: flex;
+  gap: 6px;
+  justify-content: center;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.star {
+  transition: transform 0.2s ease, color 0.2s ease;
+  color: #d1d5db;
+}
+
+.star:hover {
+  transform: scale(1.2);
+}
+
+.filled {
+  color: #fbbf24; /* yellow-400 */
+}
+
+.readonly {
+  cursor: default;
+}
+
+.ratingText {
+  font-size: 13px;
+  color: #475569;
+  font-weight: 500;
+}
