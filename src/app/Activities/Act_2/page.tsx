@@ -295,31 +295,46 @@ export default function WorkSheetPage() {
                   className={styles.fileImage}
                   unoptimized
                 />
-                <div className={styles.fileOverlay}>
-                  <button
-                    onClick={() => window.open(photo.url, "_blank")}
-                    title="View"
-                  >
-                    👁
-                  </button>
-                  <button
-                    title="Download"
-                    onClick={() => {
-                      const link = document.createElement("a");
-                      link.href = photo.url;
-                      link.download = photo.name;
-                      link.click();
-                    }}
-                  >
-                    ⬇
-                  </button>
-                  <button
-                    onClick={() => handleDelete(photo.id, photo.url)}
-                    title="Delete"
-                  >
-                    🗑
-                  </button>
-                </div>
+             <div className={styles.fileOverlay}>
+  <div className={styles.fileActions}>
+    <button
+      className={styles.fileAction}
+      title="View"
+      onClick={() => window.open(photo.url, "_blank")}
+    >
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor">
+        <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 12s3.75-7.5 9.75-7.5 9.75 7.5 9.75 7.5-3.75 7.5-9.75 7.5S2.25 12 2.25 12z" />
+        <circle cx="12" cy="12" r="3" fill="currentColor" />
+      </svg>
+    </button>
+
+    <button
+      className={styles.fileAction}
+      title="Download"
+      onClick={() => {
+        const link = document.createElement("a");
+        link.href = photo.url;
+        link.download = photo.name;
+        link.click();
+      }}
+    >
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor">
+        <path strokeLinecap="round" strokeLinejoin="round" d="M12 3v12m0 0l-4-4m4 4l4-4m-7 8h10" />
+      </svg>
+    </button>
+
+    <button
+      className={`${styles.fileAction} ${styles.fileActionDelete}`}
+      title="Delete"
+      onClick={() => handleDelete(photo.id, photo.url)}
+    >
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor">
+        <path strokeLinecap="round" strokeLinejoin="round" d="M6 7h12M9 7V4h6v3m2 0v13a2 2 0 01-2 2H8a2 2 0 01-2-2V7z" />
+      </svg>
+    </button>
+  </div>
+</div>
+
               </div>
               <div className={styles.fileInfo}>
                 <div className={styles.fileName}>{photo.name}</div>
