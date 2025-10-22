@@ -664,3 +664,28 @@
     padding: 12px;
   }
 }
+.dropdownContainer {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.dropdownLabel {
+  font-weight: 600;
+  color: #333;
+}
+
+.dropdownSelect {
+  padding: 8px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  background: #fff;
+  cursor: pointer;
+  font-size: 0.95rem;
+  transition: 0.2s;
+}
+
+.dropdownSelect:hover {
+  border-color: #888;
+}

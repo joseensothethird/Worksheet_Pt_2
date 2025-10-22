@@ -50,9 +50,11 @@ export default function PokemonReviewApp() {
   const [sortOption, setSortOption] = useState("date_desc");
   const [loading, setLoading] = useState(false);
   const [stats, setStats] = useState({ totalReviews: 0, reviewedPokemon: 0 });
+  const [userPokemonList, setUserPokemonList] = useState<string[]>([]);
 
   const fetchStats = useCallback(async () => {
     if (!user) return;
+
     const { data: reviewsData } = await supabase
       .from("pokemon_reviews")
       .select("pokemon_name");
@@ -62,10 +64,16 @@ export default function PokemonReviewApp() {
       .select("pokemon_name")
       .eq("user_id", user.id);
 
+    const uniqueUserPokemon = [
+      ...new Set(pokemonData?.map((p) => p.pokemon_name)),
+    ];
+
     setStats({
       totalReviews: reviewsData?.length || 0,
-      reviewedPokemon: new Set(pokemonData?.map((p) => p.pokemon_name)).size || 0,
+      reviewedPokemon: uniqueUserPokemon.length || 0,
     });
+
+    setUserPokemonList(uniqueUserPokemon);
   }, [user]);
 
   useEffect(() => {
@@ -209,9 +217,7 @@ export default function PokemonReviewApp() {
       <div className={styles.content} style={{ maxWidth: "800px" }}>
         {/* Header Section */}
         <div className={styles.welcomeSection}>
-          <div className={styles.icon}>
-            ⭐
-          </div>
+          <div className={styles.icon}>⭐</div>
           <h1 className={styles.title}>Pokémon Review</h1>
           <p className={styles.welcomeText}>Explore Pokémon database</p>
           <div className={styles.email}>{user?.email}</div>
@@ -233,7 +239,6 @@ export default function PokemonReviewApp() {
         <div className={styles.section}>
           <div className={styles.searchSortContainer}>
             <div className={styles.searchBox}>
-              
               <input
                 type="text"
                 placeholder="Search Pokémon by name..."
@@ -247,6 +252,36 @@ export default function PokemonReviewApp() {
               Search
             </button>
           </div>
+
+          {/* Dropdown for Reviewed Pokémon */}
+          {userPokemonList.length > 0 && (
+            <div className={styles.dropdownContainer}>
+              <label htmlFor="reviewedPokemon" className={styles.dropdownLabel}>
+                Or select from your reviewed Pokémon:
+              </label>
+              <select
+                id="reviewedPokemon"
+                onChange={(e) => {
+                  const selected = e.target.value;
+                  if (selected) {
+                    setSearch(selected);
+                    handleSearch();
+                  }
+                }}
+                className={styles.dropdownSelect}
+                value=""
+              >
+                <option value="" disabled>
+                  Choose Pokémon
+                </option>
+                {userPokemonList.map((name) => (
+                  <option key={name} value={name}>
+                    {name.charAt(0).toUpperCase() + name.slice(1)}
+                  </option>
+                ))}
+              </select>
+            </div>
+          )}
         </div>
 
         {/* Pokémon Display */}
@@ -322,7 +357,8 @@ export default function PokemonReviewApp() {
             <div className={styles.reviewsContainer}>
               <div className={styles.reviewsHeader}>
                 <h3 className={styles.sectionTitle}>
-                  Reviews for {pokemon.name.charAt(0).toUpperCase() +
+                  Reviews for{" "}
+                  {pokemon.name.charAt(0).toUpperCase() +
                     pokemon.name.slice(1)}
                 </h3>
                 <div className={styles.reviewControls}>
@@ -406,7 +442,7 @@ export default function PokemonReviewApp() {
             className={styles.backButton}
             onClick={() => window.history.back()}
           >
-             Back to Dashboard
+            Back to Dashboard
           </button>
         </div>
       </div>

@@ -20,7 +20,7 @@ interface Photo {
   created_at: string;
 }
 
-export default function DriveLitePage() {
+export default function WorkSheetPage() {
   const router = useRouter();
   const [user, setUser] = useState<User | null>(null);
   const [photos, setPhotos] = useState<Photo[]>([]);
@@ -30,7 +30,7 @@ export default function DriveLitePage() {
   const [searchTerm, setSearchTerm] = useState("");
   const [sortOption, setSortOption] = useState("newest");
 
-  // 🔐 Auth check — redirect if not logged in
+  // 🔐 Auth check
   useEffect(() => {
     const checkAuth = async () => {
       const { data } = await supabase.auth.getUser();
@@ -55,6 +55,7 @@ export default function DriveLitePage() {
       .select("*")
       .eq("user_id", user.id)
       .order("created_at", { ascending: false });
+
     if (error) console.error(error);
     else setPhotos(data || []);
   }, [user]);
@@ -63,7 +64,7 @@ export default function DriveLitePage() {
     if (user) fetchPhotos();
   }, [user, fetchPhotos]);
 
-  // 📤 Handle Upload
+  // 📤 Upload file to drive-lite/photos/{user.id}/timestamp_filename
   const handleUpload = async () => {
     if (!file || !user) {
       alert("Please select a file first!");
@@ -72,37 +73,43 @@ export default function DriveLitePage() {
 
     setUploading(true);
 
-    const fileName = `${user.id}/${Date.now()}_${file.name}`;
-    const { error: uploadError } = await supabase.storage
+    // Correct path for your Supabase bucket
+    const filePath = `photos/${user.id}/${Date.now()}_${file.name}`;
+    console.log("Uploading to drive-lite:", filePath);
+
+    // ✅ Upload to drive-lite bucket
+    const { data, error: uploadError } = await supabase.storage
       .from("drive-lite")
-      .upload(fileName, file);
+      .upload(filePath, file);
 
     if (uploadError) {
-      console.error(uploadError);
+      console.error("❌ Upload failed:", uploadError.message);
       alert("❌ Upload failed: " + uploadError.message);
       setUploading(false);
       return;
     }
 
-    // ✅ Get public URL
-    const { data: urlData } = supabase.storage
-      .from("drive-lite")
-      .getPublicUrl(fileName);
+    console.log("✅ File uploaded:", data);
 
-    const publicUrl = urlData?.publicUrl;
+    // ✅ Get public URL
+    const { data: publicData } = supabase.storage
+      .from("drive-lite")
+      .getPublicUrl(filePath);
+
+    const publicUrl = publicData?.publicUrl;
     if (!publicUrl) {
       alert("❌ Could not generate public URL!");
       setUploading(false);
       return;
     }
 
-    // ✅ Insert record in DB
+    // ✅ Save metadata to DB
     const { error: insertError } = await supabase.from("photos").insert([
       {
         name: file.name,
         url: publicUrl,
         user_id: user.id,
-        size: Math.round(file.size / 1024), // KB
+        size: Math.round(file.size / 1024),
       },
     ]);
 
@@ -113,7 +120,7 @@ export default function DriveLitePage() {
       return;
     }
 
-    alert("✅ File uploaded successfully!");
+    alert("✅ File uploaded successfully to drive-lite/photos/");
     setFile(null);
     setUploading(false);
     fetchPhotos();
@@ -123,9 +130,29 @@ export default function DriveLitePage() {
   const handleDelete = async (id: string, fileUrl: string) => {
     if (!confirm("Are you sure you want to delete this file?")) return;
 
-    const path = fileUrl.split("/drive-lite/")[1];
-    await supabase.storage.from("drive-lite").remove([path]);
-    await supabase.from("photos").delete().eq("id", id);
+    // Correct remove path for drive-lite
+    const path = fileUrl.split("/storage/v1/object/public/drive-lite/")[1];
+    if (!path) {
+      alert("❌ Invalid file path — cannot delete.");
+      return;
+    }
+
+    const { error: storageError } = await supabase.storage
+      .from("drive-lite")
+      .remove([path]);
+
+    if (storageError) {
+      console.error(storageError);
+      alert("❌ Storage delete failed: " + storageError.message);
+      return;
+    }
+
+    const { error: dbError } = await supabase
+      .from("photos")
+      .delete()
+      .eq("id", id);
+
+    if (dbError) console.error(dbError);
     fetchPhotos();
   };
 
@@ -153,7 +180,7 @@ export default function DriveLitePage() {
         <div className={styles.content}>
           <div className={styles.loading}>
             <div className={styles.loadingSpinner}></div>
-            <h2>Loading Drive Lite</h2>
+            <h2>Loading WorkSheet</h2>
             <p>Please wait while we load your files...</p>
           </div>
         </div>
@@ -177,7 +204,7 @@ export default function DriveLitePage() {
               </svg>
               <span className={styles.logoText}>Drive Lite</span>
             </div>
-            <div className={styles.breadcrumb}>My Drive</div>
+            <div className={styles.breadcrumb}>My Photos</div>
           </div>
           <div className={styles.headerRight}>
             <div className={styles.userInfo}>
@@ -192,22 +219,9 @@ export default function DriveLitePage() {
         {/* Toolbar */}
         <div className={styles.toolbar}>
           <div className={styles.searchBox}>
-            <div className={styles.searchIcon}>
-              <svg
-                width="20"
-                height="20"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-              >
-                <circle cx="11" cy="11" r="8" />
-                <path d="m21 21-4.3-4.3" />
-              </svg>
-            </div>
             <input
               type="text"
-              placeholder="Search in Drive Lite..."
+              placeholder="Search photos..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               className={styles.searchInput}
@@ -235,43 +249,26 @@ export default function DriveLitePage() {
                 id="file-upload"
               />
               <label htmlFor="file-upload" className={styles.uploadButton}>
-                <svg
-                  width="20"
-                  height="20"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                >
-                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-                  <polyline points="17 8 12 3 7 8" />
-                  <line x1="12" y1="3" x2="12" y2="15" />
-                </svg>
-                New Upload
+                Upload New
               </label>
             </div>
           </div>
         </div>
 
-        {/* File Upload Section */}
+        {/* Upload Preview */}
         {file && (
           <div className={styles.uploadCard}>
             <div className={styles.uploadCardHeader}>
-              <h3>Upload File</h3>
-              <button
-                onClick={() => setFile(null)}
-                className={styles.closeButton}
-              >
+              <h3>Upload Photo</h3>
+              <button onClick={() => setFile(null)} className={styles.closeButton}>
                 ×
               </button>
             </div>
             <div className={styles.uploadCardContent}>
-              <div className={styles.fileInfo}>
-                <div className={styles.fileDetails}>
-                  <div className={styles.fileName}>{file.name}</div>
-                  <div className={styles.fileSize}>
-                    {(file.size / 1024).toFixed(2)} KB
-                  </div>
+              <div className={styles.fileDetails}>
+                <div className={styles.fileName}>{file.name}</div>
+                <div className={styles.fileSize}>
+                  {(file.size / 1024).toFixed(2)} KB
                 </div>
               </div>
               <button
@@ -279,14 +276,7 @@ export default function DriveLitePage() {
                 disabled={uploading}
                 className={styles.uploadConfirmButton}
               >
-                {uploading ? (
-                  <>
-                    <div className={styles.loadingSpinnerSmall}></div>
-                    Uploading...
-                  </>
-                ) : (
-                  "Upload to Drive Lite"
-                )}
+                {uploading ? "Uploading..." : "Upload to Drive Lite"}
               </button>
             </div>
           </div>
@@ -306,54 +296,56 @@ export default function DriveLitePage() {
                   unoptimized
                 />
                 <div className={styles.fileOverlay}>
-                  <div className={styles.fileActions}>
-                    <button
-                      className={styles.fileAction}
-                      onClick={() => window.open(photo.url, "_blank")}
-                      title="View"
-                    >
-                      👁
-                    </button>
-                    <button
-                      className={styles.fileAction}
-                      title="Download"
-                      onClick={() => {
-                        const link = document.createElement("a");
-                        link.href = photo.url;
-                        link.download = photo.name;
-                        link.click();
-                      }}
-                    >
-                      ⬇
-                    </button>
-                    <button
-                      className={`${styles.fileAction} ${styles.deleteAction}`}
-                      onClick={() => handleDelete(photo.id, photo.url)}
-                      title="Delete"
-                    >
-                      🗑
-                    </button>
-                  </div>
+                  <button
+                    onClick={() => window.open(photo.url, "_blank")}
+                    title="View"
+                  >
+                    👁
+                  </button>
+                  <button
+                    title="Download"
+                    onClick={() => {
+                      const link = document.createElement("a");
+                      link.href = photo.url;
+                      link.download = photo.name;
+                      link.click();
+                    }}
+                  >
+                    ⬇
+                  </button>
+                  <button
+                    onClick={() => handleDelete(photo.id, photo.url)}
+                    title="Delete"
+                  >
+                    🗑
+                  </button>
                 </div>
               </div>
               <div className={styles.fileInfo}>
                 <div className={styles.fileName}>{photo.name}</div>
                 <div className={styles.fileMeta}>
-                  Uploaded {new Date(photo.created_at).toLocaleDateString()}
+                  {new Date(photo.created_at).toLocaleDateString()}
                 </div>
               </div>
             </div>
           ))}
         </div>
 
+        {filteredPhotos.length === 0 && !loading && (
+          <div className={styles.emptyState}>
+            <h3>No photos yet</h3>
+            <p>Upload your first photo to get started</p>
+          </div>
+        )}
+
         <div className={styles.actionButtons}>
-        <button
-          className={styles.backButton}
-          onClick={() => window.history.back()}
-        >
-          Back to Dashboard
-        </button>
-      </div>
+          <button
+            className={styles.backButton}
+            onClick={() => window.history.back()}
+          >
+            Back to Dashboard
+          </button>
+        </div>
       </div>
     </div>
   );

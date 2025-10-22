@@ -27,7 +27,10 @@ export default function FoodReviewApp() {
   const [photos, setPhotos] = useState<FoodPhoto[]>([]);
   const [reviews, setReviews] = useState<Record<string, Review[]>>({});
   const [loading, setLoading] = useState(true);
+  const [file, setFile] = useState<File | null>(null);
+  const [reviewText, setReviewText] = useState("");
 
+  // Fetch reviews for each food photo
   const fetchReviews = useCallback(async (foodId: string) => {
     const { data, error } = await supabase
       .from("reviews")
@@ -40,6 +43,7 @@ export default function FoodReviewApp() {
     }
   }, []);
 
+  // Fetch uploaded photos
   const fetchPhotos = useCallback(
     async (userId: string) => {
       setLoading(true);
@@ -58,11 +62,14 @@ export default function FoodReviewApp() {
       setPhotos(data || []);
       setLoading(false);
 
-      for (const photo of data || []) fetchReviews(photo.id);
+      for (const photo of data || []) {
+        fetchReviews(photo.id);
+      }
     },
     [fetchReviews]
   );
 
+  // Initialize user and fetch their photos
   useEffect(() => {
     const init = async () => {
       const { data } = await supabase.auth.getUser();
@@ -76,42 +83,64 @@ export default function FoodReviewApp() {
     init();
   }, [fetchPhotos]);
 
-  const handleUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+  // Upload photo and review
+  const handleUpload = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!file || !user) {
+      alert("Please select a photo before submitting.");
+      return;
+    }
+
     try {
-      const file = e.target.files?.[0];
-      if (!file || !user) {
-        alert("No file or user found.");
-        return;
-      }
-
       const ext = file.name.split(".").pop();
-      const filePath = `${user.id}/${Date.now()}.${ext}`;
+      const timestamp = Date.now();
+      const filePath = `food_photos/${user.id}-${timestamp}.${ext}`;
 
+      // Upload file to Supabase storage
       const { error: uploadError } = await supabase.storage
-        .from("food-photos")
+        .from("drive-lite")
         .upload(filePath, file);
 
       if (uploadError) throw uploadError;
 
+      // Get the public URL
       const { data: publicData } = supabase.storage
-        .from("food-photos")
+        .from("drive-lite")
         .getPublicUrl(filePath);
 
-      if (!publicData?.publicUrl)
-        throw new Error("Failed to get public URL");
+      if (!publicData?.publicUrl) throw new Error("Failed to get public URL");
 
-      const { error: dbError } = await supabase.from("food_photos").insert([
-        {
-          name: file.name,
-          url: publicData.publicUrl,
-          user_id: user.id,
-        },
-      ]);
+      // Save photo record to DB
+      const { data: photoData, error: dbError } = await supabase
+        .from("food_photos")
+        .insert([
+          {
+            name: file.name,
+            url: publicData.publicUrl,
+            user_id: user.id,
+          },
+        ])
+        .select()
+        .single();
 
       if (dbError) throw dbError;
 
+      // Save review (optional)
+      if (reviewText.trim() !== "") {
+        const { error: reviewError } = await supabase.from("reviews").insert([
+          {
+            content: reviewText,
+            food_id: photoData.id,
+            user_id: user.id,
+          },
+        ]);
+        if (reviewError) throw reviewError;
+      }
+
+      setFile(null);
+      setReviewText("");
       await fetchPhotos(user.id);
-      alert("Upload successful!");
+      alert("Upload and review submitted successfully!");
     } catch (err) {
       if (err instanceof Error) {
         console.error("Upload failed:", err.message);
@@ -120,14 +149,16 @@ export default function FoodReviewApp() {
     }
   };
 
+  // Delete photo + related reviews
   const deletePhoto = async (id: string, url: string) => {
     if (!confirm("Delete this photo and all reviews?")) return;
-    const path = url.split("/food-photos/")[1];
-    await supabase.storage.from("food-photos").remove([path]);
+    const path = url.split("/drive-lite/")[1];
+    await supabase.storage.from("drive-lite").remove([path]);
     await supabase.from("food_photos").delete().eq("id", id);
     setPhotos((prev) => prev.filter((p) => p.id !== id));
   };
 
+  // Rename photo
   const renamePhoto = async (id: string, oldName: string) => {
     const newName = prompt("New photo name:", oldName);
     if (!newName || newName === oldName) return;
@@ -144,30 +175,23 @@ export default function FoodReviewApp() {
     }
   };
 
-  const addReview = async (foodId: string) => {
-    const content = prompt("Enter your review:");
-    if (!content || !user) return;
+  const filteredPhotos = photos.sort(
+    (a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
+  );
 
-    const { error } = await supabase.from("reviews").insert([
-      { content, food_id: foodId, user_id: user.id },
-    ]);
-
-    if (!error) fetchReviews(foodId);
-  };
-
-  const filteredPhotos = photos
-    .sort((a, b) => 
-      new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
-    );
-
-  if (loading)
+  if (loading) {
     return (
-      <div className={styles.loading}>
-        <div className={styles.loadingSpinner}></div>
-        <h2>Loading Your Food Gallery</h2>
-        <p>Preparing your culinary journey...</p>
+      <div className={styles.container}>
+        <div className={styles.content}>
+          <div className={styles.loading}>
+            <div className={styles.loadingSpinner}></div>
+            <h2>Loading Your Food Gallery</h2>
+            <p>Preparing your culinary journey…</p>
+          </div>
+        </div>
       </div>
     );
+  }
 
   return (
     <div className={styles.container}>
@@ -192,50 +216,48 @@ export default function FoodReviewApp() {
         </div>
 
         {/* Upload Section */}
-        <div className={styles.uploadSection}>
+        <form className={styles.uploadSection} onSubmit={handleUpload}>
           <label className={styles.uploadButton}>
-            📸 Upload Food Photo
+            📸 Choose Food Photo
             <input
               type="file"
               accept="image/*"
-              onChange={handleUpload}
+              onChange={(e) => setFile(e.target.files?.[0] || null)}
               style={{ display: "none" }}
             />
           </label>
-        </div>
+          <textarea
+            className={styles.reviewInput}
+            placeholder="Write your food review…"
+            value={reviewText}
+            onChange={(e) => setReviewText(e.target.value)}
+          />
+          <button type="submit" className={styles.submitButton}>
+            🚀 Upload & Post Review
+          </button>
+        </form>
 
         {/* Stats Overview */}
         <div className={styles.statsOverview}>
           <div className={styles.statItem}>
-            <span>📸</span>
-            <div>
+            <div className={styles.statIcon}>📸</div>
+            <div className={styles.statContent}>
               <div className={styles.statNumber}>{photos.length}</div>
               <div className={styles.statLabel}>Food Photos</div>
             </div>
           </div>
           <div className={styles.statItem}>
-            <span>📝</span>
-            <div>
+            <div className={styles.statIcon}>📝</div>
+            <div className={styles.statContent}>
               <div className={styles.statNumber}>
                 {Object.values(reviews).flat().length}
               </div>
               <div className={styles.statLabel}>Total Reviews</div>
             </div>
           </div>
-          <div className={styles.statItem}>
-            <span>⭐</span>
-            <div>
-              <div className={styles.statNumber}>
-                {photos.length > 0
-                  ? (Object.values(reviews).flat().length / photos.length).toFixed(1)
-                  : "0.0"}
-              </div>
-              <div className={styles.statLabel}>Avg Reviews per Photo</div>
-            </div>
-          </div>
         </div>
 
-        {/* Gallery */}
+        {/* Food Gallery */}
         <div className={styles.foodGrid}>
           {filteredPhotos.map((photo) => (
             <div key={photo.id} className={styles.foodCard}>
@@ -246,33 +268,47 @@ export default function FoodReviewApp() {
                   width={500}
                   height={400}
                   className={styles.foodImg}
+                  unoptimized
                 />
                 <div className={styles.foodOverlay}>
-                  <button
-                    className={styles.foodAction}
-                    onClick={() => renamePhoto(photo.id, photo.name)}
-                  >
-                    ✏️
-                  </button>
-                  <button
-                    className={styles.foodAction}
-                    onClick={() => deletePhoto(photo.id, photo.url)}
-                  >
-                    🗑️
-                  </button>
+                  <div className={styles.foodActions}>
+                    <button
+                      className={styles.foodAction}
+                      onClick={() => renamePhoto(photo.id, photo.name)}
+                      title="Rename"
+                    >
+                      ✏️
+                    </button>
+                    <button
+                      className={`${styles.foodAction} ${styles.deleteAction}`}
+                      onClick={() => deletePhoto(photo.id, photo.url)}
+                      title="Delete"
+                    >
+                      🗑️
+                    </button>
+                  </div>
                 </div>
               </div>
               <div className={styles.foodContent}>
-                <h3>{photo.name}</h3>
-                
+                <div className={styles.foodHeader}>
+                  <h3 className={styles.foodName}>{photo.name}</h3>
+                  <span className={styles.foodDate}>
+                    {new Date(photo.created_at).toLocaleDateString()}
+                  </span>
+                </div>
+
                 {/* Reviews Section */}
                 <div className={styles.reviewsSection}>
-                  <h4>Reviews:</h4>
+                  <div className={styles.reviewsHeader}>
+                    <h4 className={styles.reviewsTitle}>Reviews</h4>
+                  </div>
                   {reviews[photo.id]?.length > 0 ? (
                     <div className={styles.reviewsList}>
                       {reviews[photo.id].map((review) => (
                         <div key={review.id} className={styles.reviewItem}>
-                          <p className={styles.reviewContent}>{review.content}</p>
+                          <p className={styles.reviewContent}>
+                            {review.content}
+                          </p>
                           <small className={styles.reviewDate}>
                             {new Date(review.created_at).toLocaleDateString()}
                           </small>
@@ -283,19 +319,13 @@ export default function FoodReviewApp() {
                     <p className={styles.noReviews}>No reviews yet</p>
                   )}
                 </div>
-
-                <button
-                  className={styles.addReviewButton}
-                  onClick={() => addReview(photo.id)}
-                >
-                  + Add Review
-                </button>
               </div>
             </div>
           ))}
         </div>
 
-        {photos.length === 0 && !loading && (
+        {/* Empty State */}
+        {photos.length === 0 && (
           <div className={styles.emptyState}>
             <div className={styles.emptyIcon}>🍽️</div>
             <h3>No Food Photos Yet</h3>
@@ -303,12 +333,15 @@ export default function FoodReviewApp() {
           </div>
         )}
 
-        <button
-          className={styles.backButton}
-          onClick={() => (window.location.href = "/")}
-        >
-          ← Back to Home
-        </button>
+        {/* Back Button */}
+        <div className={styles.actionButtons}>
+          <button
+            className={styles.backButton}
+            onClick={() => (window.location.href = "/")}
+          >
+            Back to Dashboard
+          </button>
+        </div>
       </div>
     </div>
   );

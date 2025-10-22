@@ -67,9 +67,7 @@ export default function HomePage() {
     <div className={styles.container}>
       <div className={styles.content}>
         {/* Notice Banner */}
-        <div className={styles.noticeBanner}>
-          ⚠️ Note: I’m fixing my Supabase bucket tomorrow — anything related to uploading photos is still not working for now.
-        </div>
+    
 
         {/* Welcome Section */}
         <div className={styles.welcomeSection}>
